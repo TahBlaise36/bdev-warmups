@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!-- WU 6.4 · Array of objects + forEach — BDev Academy concept demo -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S6 · WU 6.4 — Array of objects + forEach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --ink:#0A0A0B; --bone:#FAF9F6; --terra:#E2562B;
+    --code-bg:#1A1A2E; --code-text:#E2E8F0; --term-bg:#0D1117;
+    --line:#E6E2DA; --text-dim:#605D57;
+    --kw:#C792EA; --str:#9ECE6A; --num:#FF9E64; --fn:#82AAFF; --cm:#7A8699; --var:#7DD3FC; --prop:#7DD3FC;
+  }
+  * { box-sizing:border-box; margin:0; }
+  body {
+    font-family:'Inter',system-ui,sans-serif; color:var(--ink);
+    background:#ECEAE4; line-height:1.6; -webkit-font-smoothing:antialiased;
+    min-height:100vh; display:grid; place-items:center; padding:48px 32px;
+  }
+  .demo { width:100%; max-width:920px; }
+  .label {
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--terra);
+    margin-bottom:14px; display:block;
+  }
+  .card {
+    border-radius:16px; overflow:hidden; border:1px solid var(--line);
+    box-shadow:0 12px 40px rgba(10,10,11,.10);
+  }
+  .split { display:grid; grid-template-columns:1fr 1fr; }
+  .panel-head {
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em;
+    text-transform:uppercase; padding:12px 20px; display:flex; align-items:center; gap:8px;
+  }
+  .dots { display:flex; gap:5px; }
+  .dots i { width:9px; height:9px; border-radius:50%; display:block; }
+  .code { background:var(--code-bg); }
+  .code .panel-head { color:#8A93B8; border-bottom:1px solid rgba(255,255,255,.08); }
+  .code pre {
+    padding:22px 20px; margin:0; white-space:pre-wrap;
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; line-height:1.8; color:var(--code-text);
+  }
+  .term { background:var(--term-bg); }
+  .term .panel-head { color:#586069; border-bottom:1px solid rgba(255,255,255,.06); }
+  .term-body {
+    padding:22px 20px; font-family:'JetBrains Mono',monospace;
+    font-size:12.5px; line-height:1.95; color:#C9D1D9;
+  }
+  .term-body .ln { display:flex; gap:10px; }
+  .term-body .ln::before { content:">"; color:#34D399; font-weight:700; }
+  .kw{color:var(--kw)} .str{color:var(--str)} .num{color:var(--num)}
+  .fn{color:var(--fn)} .cm{color:var(--cm)} .var{color:var(--var)} .prop{color:var(--prop)}
+
+  .dom-out {
+    margin-top:22px; background:#fff; border:1px solid var(--line);
+    border-radius:14px; padding:8px 8px 12px; box-shadow:0 6px 20px rgba(10,10,11,.06);
+  }
+  .dom-head {
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim);
+    padding:10px 14px; letter-spacing:.08em; text-transform:uppercase;
+    display:flex; align-items:center; gap:8px;
+  }
+  .dom-head .badge { background:rgba(226,86,43,.12); color:var(--terra);
+    padding:2px 8px; border-radius:99px; font-size:10px; }
+  ul.product-list { list-style:none; margin:0; padding:0; }
+  ul.product-list li {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:13px 16px; border-radius:10px; font-size:14.5px;
+  }
+  ul.product-list li:nth-child(odd) { background:var(--bone); }
+  ul.product-list li .name { font-weight:500; }
+  ul.product-list li .price {
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-dim);
+  }
+  .caption {
+    margin-top:20px; text-align:center; color:var(--text-dim);
+    font-size:15px; max-width:660px; margin-left:auto; margin-right:auto;
+  }
+  .caption code { font-family:'JetBrains Mono',monospace; color:var(--terra); font-size:.9em; }
+  @media (max-width:640px){ .split{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+  <div class="demo">
+    <span class="label">S6 · WU 6.4</span>
+    <div class="card">
+      <div class="split">
+        <div class="code">
+          <div class="panel-head">
+            <span class="dots"><i style="background:#FF5F56"></i><i style="background:#FFBD2E"></i><i style="background:#27C93F"></i></span>
+            products.js
+          </div>
+<pre><span class="kw">const</span> <span class="var">products</span> = [
+  { <span class="prop">name</span>: <span class="str">"Tecno Spark 20 Pro"</span>, <span class="prop">price</span>: <span class="num">112000</span> },
+  { <span class="prop">name</span>: <span class="str">"Infinix Hot 40i"</span>,    <span class="prop">price</span>: <span class="num">95000</span>  },
+  { <span class="prop">name</span>: <span class="str">"itel A70"</span>,           <span class="prop">price</span>: <span class="num">48000</span>  },
+];
+
+<span class="var">products</span>.<span class="fn">forEach</span>(<span class="kw">function</span>(<span class="var">product</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="var">product</span>.<span class="prop">name</span>, <span class="str">"—"</span>, <span class="var">product</span>.<span class="prop">price</span>, <span class="str">"XAF"</span>);
+});</pre>
+        </div>
+        <div class="term">
+          <div class="panel-head">Console</div>
+          <div class="term-body">
+            <div class="ln">Tecno Spark 20 Pro — 112000 XAF</div>
+            <div class="ln">Infinix Hot 40i — 95000 XAF</div>
+            <div class="ln">itel A70 — 48000 XAF</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dom-out">
+      <div class="dom-head">Rendered to the page <span class="badge">same data → &lt;ul&gt;</span></div>
+      <ul class="product-list">
+        <li><span class="name">Tecno Spark 20 Pro</span><span class="price">112,000 XAF</span></li>
+        <li><span class="name">Infinix Hot 40i</span><span class="price">95,000 XAF</span></li>
+        <li><span class="name">itel A70</span><span class="price">48,000 XAF</span></li>
+      </ul>
+    </div>
+
+    <p class="caption">An array holds many items. <code>forEach</code> visits each one. Real apps store thousands of products this way.</p>
+  </div>
+</body>
+</html>

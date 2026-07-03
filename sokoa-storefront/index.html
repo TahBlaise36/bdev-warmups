@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sokoa — Cameroon's friendly marketplace</title>
+    <meta
+      name="description"
+      content="Buy phones, fashion, groceries and home goods from local sellers across Buea and Douala. Pay with MoMo or on delivery."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ===== Nav ===== -->
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a class="logo" href="index.html">
+          <span class="mark"
+            ><svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9A2 2 0 0 1 7 19L6 8Z"
+                fill="#fff"
+              />
+              <path
+                d="M9 8V7a3 3 0 0 1 6 0v1"
+                stroke="#fff"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+              <path
+                d="M9.5 13.5l2 2 3.2-3.4"
+                stroke="#BE123C"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span>Sok<b>oa</b></span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="active">Home</a>
+          <a href="shop.html">Shop</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-actions">
+          <button
+            class="theme-toggle"
+            id="themeBtn"
+            aria-label="Toggle dark mode"
+          >
+            <svg
+              class="moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            <svg
+              class="sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+              />
+            </svg>
+          </button>
+          <a class="btn btn-ghost btn-sm nav-cta" href="signin.html">Sign in</a>
+          <a class="btn btn-primary btn-sm nav-cta" href="signup.html"
+            >Sign up</a
+          >
+          <button
+            class="hamburger"
+            id="hamburger"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            <svg
+              class="menu"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+            <svg
+              class="x"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <div class="mm-actions">
+        <a class="btn btn-ghost" href="signin.html">Sign in</a>
+        <a class="btn btn-primary" href="signup.html">Sign up</a>
+      </div>
+    </div>
+
+    <main class="page">
+      <!-- ===== Hero ===== -->
+      <header class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="hero-eyebrow"
+              ><span class="dot"></span>Now delivering in Buea &amp;
+              Douala</span
+            >
+            <h1>
+              Everything you need, from sellers
+              <span class="hl">near you</span>.
+            </h1>
+            <p>
+              Sokoa is Cameroon's friendly marketplace — phones, fashion, fresh
+              groceries and home goods from thousands of local sellers. Pay with
+              MoMo, Orange Money, or cash on delivery.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-grad btn-lg" href="shop.html"
+                >Shop the deals
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+              <a class="btn btn-secondary btn-lg" href="#categories"
+                >Browse categories</a
+              >
+            </div>
+            <div class="hero-stats">
+              <div class="hero-stat">
+                <div class="num" data-count="500" data-suffix="+">0</div>
+                <div class="lbl">products listed</div>
+              </div>
+              <div class="hero-stat">
+                <div class="num" data-count="10000" data-suffix="+">0</div>
+                <div class="lbl">orders delivered</div>
+              </div>
+              <div class="hero-stat">
+                <div
+                  class="num"
+                  data-count="4.8"
+                  data-suffix="★"
+                  data-decimals="1"
+                >
+                  0
+                </div>
+                <div class="lbl">average rating</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-media">
+            <div class="ph rose">
+              <img
+                src="https://images.unsplash.com/photo-1552710307-8d1c604d6319?w=900&h=720&fit=crop&q=80"
+                alt="Busy African marketplace — people walking between colourful market stalls"
+                loading="eager"
+              />
+            </div>
+            <div class="hero-float">
+              <span class="ic"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12l4 4L19 6" />
+                </svg>
+              </span>
+              <div>
+                <div class="t">Free delivery</div>
+                <div class="s">on orders over 25,000 XAF</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== Category / product grid ===== -->
+      <section class="section" id="categories">
+        <div class="container">
+          <div class="sec-head">
+            <div>
+              <span class="eyebrow">Shop by category</span>
+              <h2>Trending in Buea this week</h2>
+            </div>
+            <a class="link" href="shop.html"
+              >See all deals
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="filters" id="filters">
+            <button class="filter-chip active" data-filter="all">All</button>
+            <button class="filter-chip" data-filter="phones">Phones</button>
+            <button class="filter-chip" data-filter="fashion">Fashion</button>
+            <button class="filter-chip" data-filter="groceries">
+              Groceries
+            </button>
+          </div>
+
+          <div class="product-grid cols-4" id="productGrid">
+            <article
+              class="card card-hover product-card"
+              data-category="phones"
+            >
+              <div class="ph slate" style="aspect-ratio: 4/3">
+                <span class="badge badge-rose pc-cat">Phones</span
+                ><img
+                  src="https://images.unsplash.com/photo-1598965402089-897ce52e8355?w=600&h=400&fit=crop&q=80"
+                  alt="Tecno Spark 20 Pro"
+                  loading="lazy"
+                />
+              </div>
+              <div class="pc-body">
+                <div class="pc-name">Tecno Spark 20 Pro</div>
+                <div class="pc-desc">256GB · 8GB RAM · 108MP camera</div>
+                <div class="pc-foot">
+                  <span class="price pc-price"
+                    >112,000 <span class="cur">XAF</span></span
+                  >
+                  <button class="add-btn" aria-label="Add to cart">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="card card-hover product-card"
+              data-category="phones"
+            >
+              <div class="ph sky" style="aspect-ratio: 4/3">
+                <span class="badge badge-rose pc-cat">Phones</span
+                ><img
+                  src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=600&h=400&fit=crop&q=80"
+                  alt="Infinix Hot 40i"
+                  loading="lazy"
+                />
+              </div>
+              <div class="pc-body">
+                <div class="pc-name">Infinix Hot 40i</div>
+                <div class="pc-desc">128GB · 90Hz display · big battery</div>
+                <div class="pc-foot">
+                  <span class="price pc-price"
+                    >95,000 <span class="cur">XAF</span></span
+                  >
+                  <button class="add-btn" aria-label="Add to cart">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="card card-hover product-card"
+              data-category="phones"
+            >
+              <div class="ph rose" style="aspect-ratio: 4/3">
+                <span class="badge badge-rose pc-cat">Phones</span
+                ><img
+                  src="https://images.unsplash.com/photo-1596742578443-7682ef5251cd?w=600&h=400&fit=crop&q=80"
+                  alt="itel A70"
+                  loading="lazy"
+                />
+              </div>
+              <div class="pc-body">
+                <div class="pc-name">itel A70</div>
+                <div class="pc-desc">128GB · big 5000mAh battery</div>
+                <div class="pc-foot">
+                  <span class="price pc-price"
+                    >48,000 <span class="cur">XAF</span></span
+                  >
+                  <button class="add-btn" aria-label="Add to cart">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="card card-hover product-card"
+              data-category="fashion"
+            >
+              <div class="ph plum" style="aspect-ratio: 4/3">
+                <span class="badge badge-rose pc-cat">Fashion</span
+                ><img
+                  src="https://images.unsplash.com/photo-1768212565424-efa3a3852b81?w=600&h=400&fit=crop&q=80"
+                  alt="Ankara wax print fabric"
+                  loading="lazy"
+                />
+              </div>
+              <div class="pc-body">
+                <div class="pc-name">Ankara wax · 6 yards</div>
+                <div class="pc-desc">
+                  Hollandais print · vivid, fast colours
+                </div>
+                <div class="pc-foot">
+                  <span class="price pc-price"
+                    >11,000 <span class="cur">XAF</span></span
+                  >
+                  <button class="add-btn" aria-label="Add to cart">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="card card-hover product-card"
+              data-category="fashion"
+            >
+              <div class="ph rose" style="aspect-ratio: 4/3">
+                <span class="badge badge-rose pc-cat">Fashion</span
+                ><img
+                  src="https://images.unsplash.com/photo-1627388484741-74dcc56ec343?w=600&h=400&fit=crop&q=80"
+                  alt="Handmade leather sandals"
+                  loading="lazy"
+                />
+              </div>
+              <div class="pc-body">
+                <div class="pc-name">Leather sandals</div>
+                <div class="pc-desc">Handmade in Foumban · sizes 38–45</div>
+                <div class="pc-foot">
+                  <span class="price pc-price"
+                    >14,500 <span class="cur">XAF</span></span
+                  >
+                  <button class="add-btn" aria-label="Add to cart">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="card card-hover product-card"
+              data-category="groceries"
+            >
+              <div class="ph green" style="aspect-ratio: 4/3">
+                <span class="badge badge-rose pc-cat">Groceries</span
+                ><img
+                  src="https://images.unsplash.com/photo-1575303093127-18b3c4ef8c41?w=600&h=400&fit=crop&q=80"
+                  alt="Ndolé leaves"
+                  loading="lazy"
+                />
+              </div>
+              <div class="pc-body">
+                <div class="pc-name">Ndolé · 500g</div>
+                <div class="pc-desc">Fresh bitterleaf · washed &amp; ready</div>
+                <div class="pc-foot">
+                  <span class="price pc-price"
+                    >3,500 <span class="cur">XAF</span></span
+                  >
+                  <button class="add-btn" aria-label="Add to cart">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="card card-hover product-card"
+              data-category="groceries"
+            >
+              <div class="ph amber" style="aspect-ratio: 4/3">
+                <span class="badge badge-rose pc-cat">Groceries</span
+                ><img
+                  src="https://images.unsplash.com/photo-1630960411440-10f7b59717ba?w=600&h=400&fit=crop&q=80"
+                  alt="Palmnut oil"
+                  loading="lazy"
+                />
+              </div>
+              <div class="pc-body">
+                <div class="pc-name">Palmnut oil · 5L</div>
+                <div class="pc-desc">Cold-pressed · rich, red &amp; pure</div>
+                <div class="pc-foot">
+                  <span class="price pc-price"
+                    >6,800 <span class="cur">XAF</span></span
+                  >
+                  <button class="add-btn" aria-label="Add to cart">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="card card-hover product-card"
+              data-category="groceries"
+            >
+              <div class="ph green" style="aspect-ratio: 4/3">
+                <span class="badge badge-rose pc-cat">Groceries</span
+                ><img
+                  src="https://images.unsplash.com/photo-1558907530-83566904e778?w=600&h=400&fit=crop&q=80"
+                  alt="Beignets de haricot"
+                  loading="lazy"
+                />
+              </div>
+              <div class="pc-body">
+                <div class="pc-name">Beignets de haricot ×10</div>
+                <div class="pc-desc">Freshly fried bean fritters</div>
+                <div class="pc-foot">
+                  <span class="price pc-price"
+                    >1,500 <span class="cur">XAF</span></span
+                  >
+                  <button class="add-btn" aria-label="Add to cart">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Brands we stock ===== -->
+      <section class="section brands reveal">
+        <div class="container">
+          <div
+            class="sec-head"
+            style="justify-content: center; text-align: center"
+          >
+            <div>
+              <span class="eyebrow">Trusted brands</span>
+              <h2>Brands we stock</h2>
+            </div>
+          </div>
+          <div class="brand-row">
+            <span class="brand-pill"
+              ><span class="bdot" style="background: #0ea5e9">T</span
+              >Tecno</span
+            >
+            <span class="brand-pill"
+              ><span class="bdot" style="background: #7c3aed">I</span
+              >Infinix</span
+            >
+            <span class="brand-pill"
+              ><span class="bdot" style="background: #f97316">i</span>itel</span
+            >
+            <span class="brand-pill"
+              ><span class="bdot" style="background: #2563eb">S</span
+              >Samsung</span
+            >
+            <span class="brand-pill"
+              ><span class="bdot" style="background: #dc2626">R</span
+              >Redmi</span
+            >
+            <span class="brand-pill"
+              ><span class="bdot" style="background: #16a34a">N</span
+              >Nasco</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Photo gallery ===== -->
+      <section class="section reveal">
+        <div class="container">
+          <div class="sec-head">
+            <div>
+              <span class="eyebrow">From the market</span>
+              <h2>Real sellers, real streets</h2>
+              <p>Snapshots from the shops and stalls of Buea and Douala.</p>
+            </div>
+          </div>
+          <div class="gallery">
+            <div class="ph rose g-tall g-wide">
+              <img
+                src="https://images.unsplash.com/photo-1687422809617-a7d97879b3b0?w=600&h=600&fit=crop&q=80"
+                alt="Market vendor"
+                loading="lazy"
+              />
+            </div>
+            <div class="ph amber">
+              <img
+                src="https://images.unsplash.com/photo-1734255026082-82fdc81991f0?w=700&h=280&fit=crop&q=80"
+                alt="Tomato market"
+                loading="lazy"
+              />
+            </div>
+            <div class="ph plum">
+              <img
+                src="https://images.unsplash.com/photo-1768212566108-4ce4f329e4d2?w=400&h=280&fit=crop&q=80"
+                alt="African textiles on display"
+                loading="lazy"
+              />
+            </div>
+            <div class="ph sky g-wide">
+              <img
+                src="https://images.unsplash.com/photo-1596742578443-7682ef5251cd?w=400&h=280&fit=crop&q=80"
+                alt="Phone counter · Buea"
+                loading="lazy"
+              />
+            </div>
+            <div class="ph green">
+              <img
+                src="https://images.unsplash.com/photo-1618615098938-84fc29796e76?w=400&h=280&fit=crop&q=80"
+                alt="Handmade leather sandals"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Newsletter ===== -->
+      <section class="section reveal">
+        <div class="container">
+          <div class="newsletter">
+            <h2>Get the best deals first</h2>
+            <p>
+              Join 8,000+ shoppers getting weekly drops, flash sales and
+              free-delivery codes straight to their inbox.
+            </p>
+            <form class="news-form" id="newsForm" novalidate>
+              <div class="news-input">
+                <input
+                  type="email"
+                  id="newsEmail"
+                  placeholder="you@example.cm"
+                  aria-label="Email address"
+                />
+                <button type="submit" class="btn">Subscribe</button>
+              </div>
+            </form>
+            <div class="news-msg" id="newsMsg" role="status"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="logo" href="index.html">
+              <span class="mark"
+                ><svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9A2 2 0 0 1 7 19L6 8Z"
+                    fill="#fff"
+                  />
+                  <path
+                    d="M9 8V7a3 3 0 0 1 6 0v1"
+                    stroke="#fff"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M9.5 13.5l2 2 3.2-3.4"
+                    stroke="#BE123C"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  /></svg
+              ></span>
+              <span>Sok<b>oa</b></span>
+            </a>
+            <p>
+              Cameroon's friendly marketplace. Buy from local sellers, pay your
+              way, and get it delivered to your door.
+            </p>
+            <div class="footer-pay">
+              <img src="assets/mtn-momo.png" alt="MTN Mobile Money" />
+              <img src="assets/orange-money.png" alt="Orange Money" />
+              <span class="cod">Cash on delivery</span>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Shop</h4>
+            <a href="shop.html">Deals &amp; bundles</a>
+            <a href="index.html#categories">Phones</a>
+            <a href="index.html#categories">Fashion</a>
+            <a href="index.html#categories">Groceries</a>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="about.html">About Sokoa</a>
+            <a href="about.html">Our team</a>
+            <a href="contact.html">Contact</a>
+            <a href="signup.html">Become a seller</a>
+          </div>
+          <div class="footer-col">
+            <h4>Account</h4>
+            <a href="signin.html">Sign in</a>
+            <a href="signup.html">Create account</a>
+            <a href="contact.html">Help centre</a>
+            <a href="contact.html">Track order</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Sokoa Marketplace · Buea &amp; Douala</span>
+          <span>Open for business. · Built in Cameroon 🇨🇲</span>
+        </div>
+      </div>
+    </footer>
+
+    <template id="__bundler_thumbnail" data-bg-color="#FFFBFB">
+      <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1200" height="800" fill="#FFFBFB" />
+        <rect x="470" y="270" width="260" height="260" rx="60" fill="url(#g)" />
+        <path
+          d="M540 400h120l-10 110a20 20 0 0 1-20 18h-60a20 20 0 0 1-20-18z"
+          fill="#fff"
+        />
+        <path
+          d="M570 400v-10a30 30 0 0 1 60 0v10"
+          stroke="#fff"
+          stroke-width="16"
+          stroke-linecap="round"
+          fill="none"
+        />
+        <path
+          d="M575 455l20 20 32-34"
+          stroke="#BE123C"
+          stroke-width="16"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="none"
+        />
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#FB7185" />
+            <stop offset="1" stop-color="#BE123C" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </template>
+    <script src="script.js"></script>
+  </body>
+</html>

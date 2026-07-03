@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chowa — Dish Card · Colour & Type</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #FFF7ED;
+      color: #1C1410;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #FED7AA;
+      border-radius: 12px;
+      max-width: 320px;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .dish-name {
+      color: #EA580C;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .price {
+      color: #C2410C;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .btn-order {
+      background: #EA580C;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Lesson callout only — kept separate from the card CSS above */
+    .lesson-callout {
+      margin-top: 28px;
+      max-width: 460px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #78716C;
+      background: #fff;
+      border: 1px solid #FED7AA;
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+    .lesson-callout strong { color: #EA580C; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1664741662725-bd131742b7b7?w=600&h=400&fit=crop&q=80"
+         alt="Ndolé au crabe">
+    <h2 class="dish-name">Ndolé au crabe</h2>
+    <p class="dish-desc">Slow-cooked bitterleaf stew with crab, smoked fish, and groundnut.</p>
+    <p class="price">4,500 XAF</p>
+    <button class="btn-order">Order now</button>
+  </div>
+
+  <div class="lesson-callout">
+    <strong>Brand colour and typeface applied.</strong> Same structure as WU 2.2 —
+    only the CSS changed. Box model (padding, margin, spacing) is next.
+  </div>
+
+</body>
+</html>

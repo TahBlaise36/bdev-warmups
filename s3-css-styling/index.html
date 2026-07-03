@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     SOKOA STOREFRONT · STAGE 3 (S3) — CSS STYLING
+     Web Foundations track · BDev Academy
+
+     Same HTML as Stage 2 — now with a coat of paint. This is where
+     the brand appears: colours, the Plus Jakarta Sans + Inter type
+     pairing, the box model (padding, borders, radius, shadows),
+     buttons and cards that look real.
+
+     But everything still flows in ONE COLUMN, top to bottom. We are
+     NOT using Flexbox or CSS Grid yet — that's Stage 4 (Layout).
+     No JavaScript yet either. Style first; arrange next.
+
+     Concepts: selectors, the cascade, custom properties, colour,
+     web fonts, typography, the box model, backgrounds, borders,
+     border-radius, box-shadow, simple transitions.
+     ============================================================ -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sokoa — Cameroon's friendly marketplace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --rose: #F43F5E;
+    --rose-deep: #BE123C;
+    --accent: #FB923C;
+    --bg: #FFFBFB;
+    --surface: #FFFFFF;
+    --tint: #FFF1F2;
+    --line: #F2DCDF;
+    --text: #20141A;
+    --text-dim: #6A535A;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    margin: 0;
+    /* Single column: one readable measure, centred. No layout system. */
+    max-width: 560px;
+    padding: 0 20px 60px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -0.02em; line-height: 1.15; }
+  a { color: var(--rose-deep); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { max-width: 100%; }
+
+  /* image placeholders — a coloured box (box model practice) */
+  .photo {
+    background: linear-gradient(135deg, #FB7185, #BE123C);
+    color: #fff;
+    height: 200px;
+    border-radius: 14px;
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    text-align: center;
+    line-height: 200px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  /* header */
+  header { padding: 22px 0 14px; border-bottom: 1px solid var(--line); margin-bottom: 26px; }
+  .brand { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 26px; color: var(--text); margin: 0; white-space: nowrap; }
+  .brand span { color: var(--rose); }
+  header nav a { display: inline-block; color: var(--text-dim); font-weight: 500; padding: 8px 12px 8px 0; }
+  header nav a:hover { color: var(--rose); text-decoration: none; }
+
+  /* buttons */
+  .btn {
+    display: inline-block;
+    font-weight: 600;
+    padding: 12px 22px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    margin: 6px 6px 6px 0;
+    transition: transform 160ms ease, box-shadow 220ms ease;
+  }
+  .btn-primary { background: var(--rose); color: #fff; box-shadow: 0 6px 18px rgba(244,63,94,.32); }
+  .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--line); }
+  .btn:hover { transform: translateY(-2px); }
+
+  /* eyebrow + hero */
+  .eyebrow { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+             color: var(--rose-deep); background: var(--tint); padding: 6px 12px; border-radius: 999px; }
+  .hero h2 { font-size: 38px; font-weight: 800; margin: 16px 0 12px; }
+  .hero p.lead { font-size: 18px; color: var(--text-dim); }
+  .stats { padding: 0; margin: 22px 0; list-style: none; }
+  .stats li { margin-bottom: 6px; }
+  .stats strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; color: var(--rose-deep); }
+
+  /* section heading */
+  .section { padding: 30px 0; border-top: 1px solid var(--line); }
+  .section > h2 { font-size: 26px; font-weight: 800; margin: 0 0 6px; }
+  .section .sub { color: var(--text-dim); margin: 0 0 18px; }
+
+  /* product cards — styled, but simply stacked (no grid) */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 2px rgba(31,19,24,.06), 0 2px 8px rgba(31,19,24,.05);
+  }
+  .card .photo { height: 170px; line-height: 170px; }
+  .cat-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  .card h3 { font-size: 18px; margin: 6px 0 4px; }
+  .card .desc { color: var(--text-dim); font-size: 14px; margin: 0 0 10px; }
+  .price { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 20px; color: var(--rose-deep); }
+  .price small { font-size: 12px; color: var(--text-dim); font-weight: 600; }
+
+  /* brands */
+  .brand-pill { display: inline-block; background: var(--surface); border: 1px solid var(--line);
+                border-radius: 12px; padding: 10px 16px; margin: 0 8px 8px 0; font-weight: 700;
+                font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  /* newsletter */
+  .newsletter { background: var(--rose-deep); color: #fff; border-radius: 20px; padding: 30px 24px; text-align: center; }
+  .newsletter h2 { margin: 0 0 8px; font-size: 24px; }
+  .newsletter p { opacity: .92; margin: 0 0 18px; }
+  .newsletter input { width: 100%; padding: 12px 14px; border-radius: 12px; border: none; margin-bottom: 10px; font-size: 15px; }
+  .newsletter .btn-primary { background: #fff; color: var(--rose-deep); box-shadow: none; width: 100%; }
+
+  /* footer */
+  footer { padding-top: 30px; border-top: 1px solid var(--line); color: var(--text-dim); }
+  footer h2 { font-size: 22px; color: var(--text); }
+  footer h3 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #9C868C; margin: 20px 0 8px; }
+  footer ul { list-style: none; padding: 0; margin: 0; }
+  footer ul li { margin-bottom: 6px; }
+  footer .fine { font-size: 13px; color: #9C868C; margin-top: 22px; }
+</style>
+</head>
+<body>
+
+  <!-- ===== Header + nav ===== -->
+  <header>
+    <h1 class="brand">Sok<span>oa</span></h1>
+    <nav aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="signin.html">Sign in</a>
+      <a href="signup.html">Sign up</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <span class="eyebrow">Now delivering in Buea &amp; Douala</span>
+      <h2>Everything you need, from sellers near you.</h2>
+      <p class="lead">Sokoa is Cameroon's friendly marketplace — phones, fashion, fresh groceries and home goods from thousands of local sellers. Pay with MoMo, Orange Money, or cash on delivery.</p>
+      <a class="btn btn-primary" href="shop.html">Shop the deals</a>
+      <a class="btn btn-ghost" href="#categories">Browse categories</a>
+      <ul class="stats">
+        <li><strong>500+</strong> products listed</li>
+        <li><strong>10,000+</strong> orders delivered</li>
+        <li><strong>4.8★</strong> average rating</li>
+      </ul>
+      <img class="photo" src="https://images.unsplash.com/photo-1552710307-8d1c604d6319?w=900&h=720&fit=crop&q=80" alt="Busy African marketplace" loading="eager">
+    </section>
+
+    <!-- ===== Products (stacked) ===== -->
+    <section class="section" id="categories">
+      <h2>Trending in Buea this week</h2>
+      <p class="sub">Shop by category — Phones, Fashion, Groceries, Home.</p>
+
+      <article class="card">
+        <img class="photo" src="https://images.unsplash.com/photo-1598965402089-897ce52e8355?w=600&h=400&fit=crop&q=80" alt="Tecno Spark 20 Pro" loading="lazy">
+        <div class="cat-label">Phones</div>
+        <h3>Tecno Spark 20 Pro</h3>
+        <p class="desc">256GB · 8GB RAM · 108MP camera</p>
+        <div class="price">112,000 <small>XAF</small></div>
+      </article>
+
+      <article class="card">
+        <img class="photo" src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=600&h=400&fit=crop&q=80" alt="Infinix Hot 40i" loading="lazy">
+        <div class="cat-label">Phones</div>
+        <h3>Infinix Hot 40i</h3>
+        <p class="desc">128GB · 90Hz display · big battery</p>
+        <div class="price">95,000 <small>XAF</small></div>
+      </article>
+
+      <article class="card">
+        <img class="photo" src="https://images.unsplash.com/photo-1596742578443-7682ef5251cd?w=600&h=400&fit=crop&q=80" alt="itel A70" loading="lazy">
+        <div class="cat-label">Phones</div>
+        <h3>itel A70</h3>
+        <p class="desc">128GB · big 5000mAh battery</p>
+        <div class="price">48,000 <small>XAF</small></div>
+      </article>
+
+      <article class="card">
+        <img class="photo" src="https://images.unsplash.com/photo-1768212565424-efa3a3852b81?w=600&h=400&fit=crop&q=80" alt="Ankara wax print fabric" loading="lazy">
+        <div class="cat-label">Fashion</div>
+        <h3>Ankara wax · 6 yards</h3>
+        <p class="desc">Hollandais print · vivid, fast colours</p>
+        <div class="price">11,000 <small>XAF</small></div>
+      </article>
+
+      <article class="card">
+        <img class="photo" src="https://images.unsplash.com/photo-1627388484741-74dcc56ec343?w=600&h=400&fit=crop&q=80" alt="Handmade leather sandals" loading="lazy">
+        <div class="cat-label">Fashion</div>
+        <h3>Leather sandals</h3>
+        <p class="desc">Handmade in Foumban · sizes 38–45</p>
+        <div class="price">14,500 <small>XAF</small></div>
+      </article>
+
+      <article class="card">
+        <img class="photo" src="https://images.unsplash.com/photo-1575303093127-18b3c4ef8c41?w=600&h=400&fit=crop&q=80" alt="Ndolé leaves" loading="lazy">
+        <div class="cat-label">Groceries</div>
+        <h3>Ndolé · 500g</h3>
+        <p class="desc">Fresh bitterleaf · washed &amp; ready</p>
+        <div class="price">3,500 <small>XAF</small></div>
+      </article>
+
+      <article class="card">
+        <img class="photo" src="https://images.unsplash.com/photo-1630960411440-10f7b59717ba?w=600&h=400&fit=crop&q=80" alt="Palmnut oil" loading="lazy">
+        <div class="cat-label">Groceries</div>
+        <h3>Palmnut oil · 5L</h3>
+        <p class="desc">Cold-pressed · rich, red &amp; pure</p>
+        <div class="price">6,800 <small>XAF</small></div>
+      </article>
+
+      <article class="card">
+        <img class="photo" src="https://images.unsplash.com/photo-1558907530-83566904e778?w=600&h=400&fit=crop&q=80" alt="Beignets de haricot" loading="lazy">
+        <div class="cat-label">Groceries</div>
+        <h3>Beignets de haricot ×10</h3>
+        <p class="desc">Freshly fried bean fritters</p>
+        <div class="price">1,500 <small>XAF</small></div>
+      </article>
+    </section>
+
+    <!-- ===== Brands ===== -->
+    <section class="section">
+      <h2>Brands we stock</h2>
+      <p class="sub">Trusted names, in stock and ready to deliver.</p>
+      <span class="brand-pill">Tecno</span>
+      <span class="brand-pill">Infinix</span>
+      <span class="brand-pill">itel</span>
+      <span class="brand-pill">Samsung</span>
+      <span class="brand-pill">Redmi</span>
+      <span class="brand-pill">Nasco</span>
+    </section>
+
+    <!-- ===== Gallery (stacked) ===== -->
+    <section class="section">
+      <h2>Real sellers, real streets</h2>
+      <p class="sub">Snapshots from the shops and stalls of Buea and Douala.</p>
+      <img class="photo" src="https://images.unsplash.com/photo-1687422809617-a7d97879b3b0?w=600&h=600&fit=crop&q=80" alt="Market vendor · Douala" loading="lazy">
+      <img class="photo" src="https://images.unsplash.com/photo-1734255026082-82fdc81991f0?w=700&h=280&fit=crop&q=80" alt="Fresh produce — tomato market" loading="lazy">
+      <img class="photo" src="https://images.unsplash.com/photo-1596742578443-7682ef5251cd?w=400&h=280&fit=crop&q=80" alt="Phone counter · Buea" loading="lazy">
+    </section>
+
+    <!-- ===== Newsletter ===== -->
+    <section class="section">
+      <div class="newsletter">
+        <h2>Get the best deals first</h2>
+        <p>Join 8,000+ shoppers getting weekly drops and free-delivery codes.</p>
+        <form>
+          <label for="email" style="display:none">Email</label>
+          <input type="email" id="email" placeholder="you@example.cm">
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <h2>Sok<span style="color:var(--rose)">oa</span></h2>
+    <p>Cameroon's friendly marketplace. Buy from local sellers, pay your way, and get it delivered to your door.</p>
+
+    <h3>Shop</h3>
+    <ul>
+      <li><a href="shop.html">Deals &amp; bundles</a></li>
+      <li><a href="index.html#categories">Phones</a></li>
+      <li><a href="index.html#categories">Fashion</a></li>
+      <li><a href="index.html#categories">Groceries</a></li>
+    </ul>
+
+    <h3>Company</h3>
+    <ul>
+      <li><a href="about.html">About Sokoa</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="signup.html">Become a seller</a></li>
+    </ul>
+
+    <h3>Account</h3>
+    <ul>
+      <li><a href="signin.html">Sign in</a></li>
+      <li><a href="signup.html">Create account</a></li>
+      <li><a href="contact.html">Track order</a></li>
+    </ul>
+
+    <p class="fine">© 2026 Sokoa Marketplace · Buea &amp; Douala · Built in Cameroon 🇨🇲</p>
+  </footer>
+<template id="__bundler_thumbnail" data-bg-color="#FFFBFB">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FFFBFB"/>
+    <rect x="420" y="250" width="360" height="200" rx="18" fill="url(#g3)"/>
+    <rect x="420" y="480" width="360" height="26" rx="6" fill="#20141A"/>
+    <rect x="420" y="524" width="260" height="18" rx="5" fill="#6A535A"/>
+    <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FB7185"/><stop offset="1" stop-color="#BE123C"/></linearGradient></defs>
+  </svg>
+</template>
+
+</body>
+</html>

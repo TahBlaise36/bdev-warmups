@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sokoa Catalogue — DOM Deep Dive</title>
+<meta name="description" content="A fully data-driven, filterable, localStorage-persistent product catalogue built with pure DOM APIs.">
+<!-- Product photos live in catalogue.js strings, which the offline
+     bundler cannot discover on its own. These tags list them so the
+     bundler inlines each one and exposes it on window.__resources.
+     Live (un-bundled) the JS falls back to the Unsplash URL. -->
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1598965402089-897ce52e8355?w=600&h=400&fit=crop&q=80" data-resource-id="t1">
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=600&h=400&fit=crop&q=80" data-resource-id="t2">
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1596742578443-7682ef5251cd?w=600&h=400&fit=crop&q=80" data-resource-id="t3">
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1768212565424-efa3a3852b81?w=600&h=400&fit=crop&q=80" data-resource-id="t4">
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1627388484741-74dcc56ec343?w=600&h=400&fit=crop&q=80" data-resource-id="t5">
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1575303093127-18b3c4ef8c41?w=600&h=400&fit=crop&q=80" data-resource-id="t6">
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1630960411440-10f7b59717ba?w=600&h=400&fit=crop&q=80" data-resource-id="t7">
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1558907530-83566904e778?w=600&h=400&fit=crop&q=80" data-resource-id="t8">
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1596742578443-7682ef5251cd?w=600&h=400&fit=crop&q=80" data-resource-id="cph">
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1552710307-537199cd41c0?w=600&h=400&fit=crop&q=80" data-resource-id="cfa">
+<meta name="ext-resource-dependency" content="https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=600&h=400&fit=crop&q=80" data-resource-id="cgr">
+<style>
+  /* ============================================================
+     SOKOA CATALOGUE — Section 7 · DOM Deep Dive
+     Standalone single-page app. Brand tokens match the storefront
+     (rose #F43F5E · deep #BE123C · accent #FB923C) but this file is
+     fully self-contained — no shared stylesheet, no dependency on
+     the 6-page sokoa-storefront. All product cards are built in JS.
+     ============================================================ */
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+  /* ---- Tokens ---- */
+  :root {
+    --rose: #F43F5E;
+    --rose-bright: #FB7185;
+    --rose-deep: #BE123C;
+    --accent: #FB923C;
+    --gradient: linear-gradient(135deg, #FB7185 0%, #BE123C 100%);
+    --gradient-warm: linear-gradient(120deg, #FB923C 0%, #F43F5E 100%);
+
+    --bg: #FFFBFB;
+    --bg-soft: #FFF5F6;
+    --surface: #FFFFFF;
+    --tint: #FFF1F2;
+    --line: #F2DCDF;
+    --line-strong: #E7C7CD;
+    --text: #20141A;
+    --text-dim: #6A535A;
+    --text-faint: #9C868C;
+    --shadow-sm: 0 1px 2px rgba(31,19,24,.06), 0 2px 8px rgba(31,19,24,.05);
+    --shadow-md: 0 6px 20px rgba(31,19,24,.09);
+    --shadow-lg: 0 18px 50px rgba(190,18,60,.16);
+
+    --r-sm: 8px; --r-md: 12px; --r-lg: 18px; --r-full: 999px;
+    --ease: cubic-bezier(0.23, 1, 0.32, 1);
+    --nav-h: 66px;
+    --font-head: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+  [data-theme="dark"] {
+    --bg: #140C0F; --bg-soft: #1B1116; --surface: #20141A; --tint: #2A1820;
+    --line: #38262D; --line-strong: #4A333B;
+    --text: #FBEEF0; --text-dim: #C5AAB1; --text-faint: #8E7077;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.3), 0 2px 10px rgba(0,0,0,.25);
+    --shadow-md: 0 8px 26px rgba(0,0,0,.4);
+    --shadow-lg: 0 22px 60px rgba(0,0,0,.55);
+  }
+
+  /* ---- Reset & base ---- */
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  body {
+    font-family: var(--font-body); background: var(--bg); color: var(--text);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+    transition: background .22s var(--ease), color .22s var(--ease);
+  }
+  h1, h2, h3 { font-family: var(--font-head); line-height: 1.12; letter-spacing: -0.02em; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  input, select { font-family: inherit; font-size: 1rem; color: inherit; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  @media (min-width: 768px) { .container { padding: 0 32px; } }
+
+  /* ---- Fixed nav ---- */
+  .nav {
+    position: fixed; inset: 0 0 auto 0; z-index: 100; height: var(--nav-h);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(14px); border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { max-width: 1180px; margin: 0 auto; padding: 0 20px; height: 100%; display: flex; align-items: center; gap: 16px; }
+  @media (min-width: 768px) { .nav-inner { padding: 0 32px; } }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-head); font-weight: 800; font-size: 1.35rem; }
+  .logo .mark { width: 34px; height: 34px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(190,18,60,.3); }
+  .logo .mark svg { width: 20px; height: 20px; }
+  .logo b { color: var(--rose); }
+  .nav-links { display: none; align-items: center; gap: 2px; margin-left: 12px; }
+  @media (min-width: 880px) { .nav-links { display: flex; } }
+  .nav-links a { font-size: .95rem; font-weight: 500; color: var(--text-dim); padding: 8px 13px; border-radius: var(--r-sm); transition: color .15s, background .15s; }
+  .nav-links a:hover { color: var(--rose); background: var(--tint); }
+  .nav-links a.active { color: var(--rose); font-weight: 600; }
+  .nav-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+  .icon-btn { width: 40px; height: 40px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; color: var(--text-dim); border: 1px solid var(--line); background: var(--surface); transition: color .15s, border-color .15s; }
+  .icon-btn:hover { color: var(--rose); border-color: var(--line-strong); }
+  .icon-btn svg { width: 19px; height: 19px; }
+  .theme-toggle .sun { display: none; }
+  [data-theme="dark"] .theme-toggle .moon { display: none; }
+  [data-theme="dark"] .theme-toggle .sun { display: block; }
+
+  /* cart button + live badge */
+  .cart-btn { position: relative; }
+  .cart-badge {
+    position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 5px;
+    border-radius: var(--r-full); background: var(--rose); color: #fff;
+    font-size: .72rem; font-weight: 700; font-family: var(--font-head);
+    display: flex; align-items: center; justify-content: center; line-height: 1;
+    box-shadow: 0 2px 6px rgba(244,63,94,.5); transform: scale(0); transition: transform .18s var(--ease);
+  }
+  .cart-badge.show { transform: scale(1); }
+  .cart-badge.pop { animation: badgePop .32s var(--ease); }
+  @keyframes badgePop { 0% { transform: scale(1); } 45% { transform: scale(1.45); } 100% { transform: scale(1); } }
+
+  /* ---- Page heading ---- */
+  .page { padding-top: var(--nav-h); }
+  .head { padding: 44px 0 8px; }
+  .head .eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--rose); }
+  .head h1 { font-size: clamp(2rem, 1.4rem + 2.6vw, 2.9rem); font-weight: 800; margin: 10px 0 8px; }
+  .head .sub { color: var(--text-dim); font-size: 1.08rem; max-width: 40em; }
+
+  /* ---- Filter bar ---- */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; padding: 26px 0 22px; }
+  .filter-chip {
+    padding: 9px 18px; border-radius: var(--r-full); font-size: .92rem; font-weight: 600;
+    color: var(--text-dim); background: var(--surface); border: 1px solid var(--line);
+    transition: color .15s, background .15s, border-color .15s, transform .15s;
+  }
+  .filter-chip:hover { border-color: var(--line-strong); transform: translateY(-1px); }
+  .filter-chip.active { color: #fff; background: var(--rose); border-color: var(--rose); box-shadow: 0 5px 14px rgba(244,63,94,.32); }
+
+  /* ---- Product grid ---- */
+  .product-grid { display: grid; grid-template-columns: 1fr; gap: 16px; padding-bottom: 8px; }
+  @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* card — built by JS, styled here */
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm); display: flex; flex-direction: column; overflow: hidden;
+    opacity: 1; transform: translateY(0); transition: transform .2s var(--ease), box-shadow .2s var(--ease), opacity .3s var(--ease);
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .card.enter { opacity: 0; transform: translateY(14px); }    /* one frame before settle */
+  .card .ph { position: relative; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.92); }
+  .card .ph svg { width: 46px; height: 46px; opacity: .92; }
+  .card .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ph.phones    { background: linear-gradient(135deg, #94A3B8, #334155); }
+  .ph.fashion   { background: linear-gradient(135deg, #F472B6, #9D174D); }
+  .ph.groceries { background: linear-gradient(135deg, #6EE7B7, #047857); }
+  .badge {
+    position: absolute; top: 10px; left: 10px; padding: 4px 11px; border-radius: var(--r-full);
+    background: color-mix(in srgb, var(--surface) 88%, transparent); color: var(--rose-deep);
+    font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; backdrop-filter: blur(4px);
+  }
+  .card-body { padding: 15px 16px 16px; display: flex; flex-direction: column; flex: 1; }
+  .card-name { font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; }
+  .card-rating { display: flex; align-items: center; gap: 5px; margin-top: 5px; color: var(--text-dim); font-size: .86rem; }
+  .card-rating .star { color: var(--accent); width: 15px; height: 15px; }
+  .card-rating .new-tag { color: var(--text-faint); font-style: italic; }
+  .card-foot { margin-top: auto; padding-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .price { font-family: var(--font-head); font-weight: 800; font-size: 1.15rem; color: var(--rose-deep); }
+  .price small { font-size: .7rem; color: var(--text-dim); font-weight: 600; }
+  .card-actions { display: flex; gap: 7px; }
+  .act {
+    width: 38px; height: 38px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); transition: transform .14s, background .15s, color .15s, border-color .15s;
+  }
+  .act svg { width: 18px; height: 18px; }
+  .act:hover { transform: translateY(-2px); }
+  .act-add { background: var(--tint); color: var(--rose-deep); border-color: transparent; }
+  .act-add:hover { background: var(--rose); color: #fff; }
+  .act-del { background: var(--surface); color: var(--text-faint); }
+  .act-del:hover { color: #fff; background: #DC2626; border-color: #DC2626; }
+
+  /* ---- Empty state ---- */
+  .empty-state { text-align: center; padding: 70px 20px; color: var(--text-dim); }
+  .empty-state[hidden] { display: none; }
+  .empty-state svg { width: 54px; height: 54px; color: var(--line-strong); margin-bottom: 14px; }
+  .empty-state p { font-size: 1.05rem; }
+
+  /* ---- Add form ---- */
+  .add-form-wrap { margin: 30px 0 70px; padding: 22px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--r-lg); }
+  .add-form-wrap h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
+  .add-form-wrap .hint { color: var(--text-dim); font-size: .9rem; margin-bottom: 16px; }
+  .add-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; }
+  .add-form .ctrl-wrap { display: flex; flex-direction: column; gap: 6px; flex: 1 1 100%; }
+  @media (min-width: 640px) {
+    .add-form .ctrl-wrap.name  { flex: 3 1 200px; }
+    .add-form .ctrl-wrap.price { flex: 1 1 130px; }
+    .add-form .ctrl-wrap.cat   { flex: 1 1 150px; }
+    .add-form .ctrl-wrap.submit{ flex: 0 0 auto; }
+  }
+  .ctrl {
+    width: 100%; padding: 12px 14px; border-radius: var(--r-md); background: var(--surface);
+    border: 1px solid var(--line-strong); transition: border-color .15s, box-shadow .15s;
+  }
+  .ctrl:focus { outline: none; border-color: var(--rose); box-shadow: 0 0 0 3px rgba(244,63,94,.16); }
+  .ctrl.invalid { border-color: #DC2626; box-shadow: 0 0 0 3px rgba(220,38,38,.14); }
+  .field-err { color: #DC2626; font-size: .8rem; font-weight: 500; min-height: 0; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; padding: 12px 22px; border-radius: var(--r-md); white-space: nowrap; transition: transform .15s, box-shadow .2s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--gradient-warm); color: #fff; box-shadow: 0 6px 18px rgba(244,63,94,.3); height: 46px; }
+  .btn svg { width: 18px; height: 18px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    .card.enter { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Fixed nav (same identity as the storefront) ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9A2 2 0 0 1 7 19L6 8Z" fill="#fff"/><path d="M9 8V7a3 3 0 0 1 6 0v1" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M9.5 13.5l2 2 3.2-3.4" stroke="#BE123C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span>Sok<b>oa</b></span>
+    </a>
+    <div class="nav-links">
+      <a href="#">Catalogue</a>
+      <a href="#filters">Categories</a>
+      <a href="#add-form">Add product</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn theme-toggle" id="themeBtn" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h2.2l2.1 12.4a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 7H5.2"/></svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="container">
+
+    <!-- page heading -->
+    <header class="head">
+      <span class="eyebrow">Section 7 · DOM Deep Dive</span>
+      <h1>Sokoa Catalogue</h1>
+      <p class="sub">Browse, add, and filter products — all from your browser. Every card on this page is built in JavaScript and saved to local storage.</p>
+    </header>
+
+    <!-- filter bar -->
+    <div id="filters" class="filters">
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="phones">Phones</button>
+      <button class="filter-chip" data-filter="fashion">Fashion</button>
+      <button class="filter-chip" data-filter="groceries">Groceries</button>
+    </div>
+
+    <!-- product list — ALL cards generated by JS -->
+    <div id="list" class="product-grid"></div>
+
+    <!-- empty state — hidden until a filter returns 0 matches -->
+    <div id="emptyState" class="empty-state" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 7l1.5 13a2 2 0 0 0 2 1.8h11a2 2 0 0 0 2-1.8L21 7M8 7V5a4 4 0 0 1 8 0v2"/></svg>
+      <p>No products in this category yet.</p>
+    </div>
+
+    <!-- add product form -->
+    <div class="add-form-wrap">
+      <h2>Add a product</h2>
+      <p class="hint">Fill the row and it appears in the grid above — and survives a refresh.</p>
+      <form id="add-form" class="add-form" novalidate>
+        <div class="ctrl-wrap name">
+          <input id="new-name" class="ctrl" type="text" placeholder="Product name (e.g. Tecno Spark 20)" autocomplete="off">
+          <span class="field-err" id="err-name"></span>
+        </div>
+        <div class="ctrl-wrap price">
+          <input id="new-price" class="ctrl" type="number" placeholder="Price in XAF" min="0">
+          <span class="field-err" id="err-price"></span>
+        </div>
+        <div class="ctrl-wrap cat">
+          <select id="new-cat" class="ctrl">
+            <option value="">Category</option>
+            <option value="phones">Phones</option>
+            <option value="fashion">Fashion</option>
+            <option value="groceries">Groceries</option>
+          </select>
+          <span class="field-err" id="err-cat"></span>
+        </div>
+        <div class="ctrl-wrap submit">
+          <button type="submit" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            Add product
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</main>
+
+<template id="__bundler_thumbnail" data-bg-color="#FFFBFB">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FFFBFB"/>
+    <rect x="180" y="150" width="380" height="46" rx="10" fill="#20141A"/>
+    <rect x="180" y="226" width="520" height="20" rx="6" fill="#9C868C"/>
+    <rect x="180" y="300" width="120" height="44" rx="22" fill="#F43F5E"/>
+    <rect x="320" y="300" width="120" height="44" rx="22" fill="#FFF1F2" stroke="#F2DCDF" stroke-width="2"/>
+    <rect x="460" y="300" width="120" height="44" rx="22" fill="#FFF1F2" stroke="#F2DCDF" stroke-width="2"/>
+    <g>
+      <rect x="180" y="400" width="260" height="240" rx="18" fill="#fff" stroke="#F2DCDF" stroke-width="2"/>
+      <rect x="180" y="400" width="260" height="120" rx="18" fill="url(#g)"/>
+      <rect x="470" y="400" width="260" height="240" rx="18" fill="#fff" stroke="#F2DCDF" stroke-width="2"/>
+      <rect x="470" y="400" width="260" height="120" rx="18" fill="#FB923C"/>
+      <rect x="760" y="400" width="260" height="240" rx="18" fill="#fff" stroke="#F2DCDF" stroke-width="2"/>
+      <rect x="760" y="400" width="260" height="120" rx="18" fill="#047857"/>
+    </g>
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FB7185"/><stop offset="1" stop-color="#BE123C"/></linearGradient></defs>
+  </svg>
+</template>
+<script src="catalogue.js"></script>
+</body>
+</html>

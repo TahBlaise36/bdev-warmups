@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     SOKOA STOREFRONT · STAGE 4 (S4) — LAYOUT
+     Web Foundations track · BDev Academy
+
+     Same content and styling as before — now ARRANGED like a real
+     site using Flexbox and CSS Grid. The nav spreads across with
+     space-between, the hero becomes two columns, the products sit
+     in a 4-column grid, the gallery uses grid spans, and the footer
+     breaks into columns.
+
+     This is the desktop "layout target". Two things are still to
+     come: Stage 5 makes it RESPONSIVE (media queries, mobile-first),
+     and Stage 6 makes it INTERACTIVE (JavaScript). So there are no
+     @media queries and no JS here yet — best viewed wide.
+
+     Concepts: Flexbox (display:flex, justify-content, align-items,
+     gap), CSS Grid (grid-template-columns, grid-column/row spans),
+     position (fixed nav, absolute badge), z-index.
+     ============================================================ -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sokoa — Cameroon's friendly marketplace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --rose: #F43F5E; --rose-deep: #BE123C; --accent: #FB923C;
+    --gradient: linear-gradient(135deg, #FB7185 0%, #BE123C 100%);
+    --bg: #FFFBFB; --bg-soft: #FFF5F6; --surface: #FFFFFF; --tint: #FFF1F2;
+    --line: #F2DCDF; --line-strong: #E7C7CD; --text: #20141A; --text-dim: #6A535A; --text-faint: #9C868C;
+    --shadow-sm: 0 1px 2px rgba(31,19,24,.06), 0 2px 8px rgba(31,19,24,.05);
+    --shadow-md: 0 6px 20px rgba(31,19,24,.09);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+  h1,h2,h3 { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -0.02em; line-height: 1.12; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; padding: 0; }
+  img { max-width: 100%; display: block; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  /* image placeholders */
+  .photo { background: var(--gradient); color: rgba(255,255,255,.92); display: flex; align-items: center; justify-content: center;
+           font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 14px; position: relative; overflow: hidden; }
+  .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .photo.slate { background: linear-gradient(135deg, #94A3B8, #334155); }
+  .photo.sky { background: linear-gradient(135deg, #7DD3FC, #0369A1); }
+  .photo.plum { background: linear-gradient(135deg, #F472B6, #9D174D); }
+  .photo.green { background: linear-gradient(135deg, #6EE7B7, #047857); }
+  .photo.amber { background: linear-gradient(135deg, #FDBA74, #EA580C); }
+
+  /* ===== Fixed nav — Flexbox with space-between ===== */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 66px;
+         background: rgba(255,251,251,.85); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; height: 100%;
+               display: flex; align-items: center; gap: 18px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 22px; }
+  .logo .mark { width: 34px; height: 34px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; }
+  .logo b { color: var(--rose); }
+  .nav-links { display: flex; align-items: center; gap: 4px; margin-left: 14px; }
+  .nav-links a { font-size: 15px; font-weight: 500; color: var(--text-dim); padding: 8px 12px; border-radius: 8px; }
+  .nav-links a.active { color: var(--rose); font-weight: 600; }
+  .nav-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-size: 15px;
+         padding: 12px 22px; border-radius: 12px; border: 1px solid transparent; cursor: pointer; white-space: nowrap; }
+  .btn-sm { padding: 9px 16px; font-size: 14px; }
+  .btn-lg { padding: 15px 28px; font-size: 17px; }
+  .btn-primary { background: var(--rose); color: #fff; box-shadow: 0 6px 18px rgba(244,63,94,.32); }
+  .btn-grad { background: var(--gradient); color: #fff; box-shadow: 0 6px 18px rgba(190,18,60,.34); }
+  .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--line-strong); }
+  .page { padding-top: 66px; }
+
+  .section { padding: 80px 0; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose); }
+
+  /* ===== Hero — two-column Grid ===== */
+  .hero { padding: 56px 0 40px; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px;
+                  background: var(--tint); color: var(--rose-deep); font-size: 13px; font-weight: 600; }
+  .hero-eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rose); }
+  .hero h1 { font-size: 56px; font-weight: 800; letter-spacing: -0.035em; margin: 18px 0 16px; }
+  .hero h1 .hl { display: inline-block; background: linear-gradient(120deg, #FB923C, #F43F5E); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--rose); }
+  .hero p { font-size: 19px; color: var(--text-dim); max-width: 36em; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .hero-stats { display: flex; gap: 28px; margin-top: 34px; }
+  .hero-stat .num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 34px; font-weight: 800; color: var(--rose-deep); }
+  .hero-stat .lbl { font-size: 13px; color: var(--text-dim); }
+  .hero-media .photo { aspect-ratio: 4/3.4; border-radius: 26px; box-shadow: 0 18px 50px rgba(190,18,60,.16); }
+
+  /* section heading — Flexbox */
+  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 26px; }
+  .sec-head h2 { font-size: 36px; font-weight: 800; }
+  .sec-head p { color: var(--text-dim); margin-top: 6px; }
+  .sec-head .link { color: var(--rose); font-weight: 600; }
+
+  /* filter chips — Flexbox (static at this stage) */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .chip { padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; color: var(--text-dim);
+          background: var(--surface); border: 1px solid var(--line); }
+  .chip.active { color: #fff; background: var(--rose); border-color: var(--rose); }
+
+  /* ===== Product grid — CSS Grid, 4 columns ===== */
+  .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: stretch; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow-sm);
+          display: flex; flex-direction: column; overflow: hidden; }
+  .card .photo { aspect-ratio: 4/3; border-radius: 0; position: relative; }
+  .card .cat { position: absolute; top: 10px; left: 10px; background: var(--tint); color: var(--rose-deep);
+               font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+  .pc-body { padding: 14px 16px 16px; display: flex; flex-direction: column; flex: 1; }
+  .pc-name { font-weight: 700; font-size: 16px; }
+  .pc-desc { font-size: 13.5px; color: var(--text-dim); margin-top: 4px; }
+  .pc-foot { margin-top: auto; padding-top: 12px; display: flex; align-items: center; justify-content: space-between; }
+  .price { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; color: var(--rose-deep); }
+  .price small { font-size: 11px; color: var(--text-dim); font-weight: 600; }
+  .add { width: 38px; height: 38px; border-radius: 10px; background: var(--tint); color: var(--rose-deep);
+         display: flex; align-items: center; justify-content: center; font-size: 22px; line-height: 1; }
+
+  /* ===== Brands — Flexbox row ===== */
+  .brands { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .brand-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; }
+  .brand-pill { display: flex; align-items: center; gap: 9px; padding: 12px 20px; border-radius: 12px; background: var(--surface);
+                border: 1px solid var(--line); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; box-shadow: var(--shadow-sm); }
+  .brand-pill .bdot { width: 22px; height: 22px; border-radius: 7px; display: flex; align-items: center; justify-content: center;
+                      color: #fff; font-size: 13px; font-weight: 800; }
+
+  /* ===== Gallery — CSS Grid with spans ===== */
+  .gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-auto-rows: 180px; gap: 12px; }
+  .gallery .photo { height: 100%; border-radius: 12px; }
+  .g-tall { grid-row: span 2; }
+  .g-wide { grid-column: span 2; }
+
+  /* ===== Newsletter ===== */
+  .newsletter { background: var(--gradient); color: #fff; border-radius: 26px; padding: 48px 28px; text-align: center; }
+  .newsletter h2 { font-size: 34px; font-weight: 800; }
+  .newsletter p { opacity: .92; margin: 12px auto 24px; max-width: 32em; }
+  .news-form { display: flex; gap: 8px; max-width: 460px; margin: 0 auto; background: rgba(255,255,255,.16);
+               border: 1px solid rgba(255,255,255,.4); border-radius: 12px; padding: 6px; }
+  .news-form input { flex: 1; background: transparent; border: none; outline: none; color: #fff; padding: 8px 12px; }
+  .news-form input::placeholder { color: rgba(255,255,255,.75); }
+  .news-form .btn { background: #fff; color: var(--rose-deep); }
+
+  /* ===== Footer — Grid columns ===== */
+  .footer { background: var(--bg-soft); border-top: 1px solid var(--line); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding: 64px 0 40px; }
+  .footer .logo { margin-bottom: 14px; }
+  .footer-brand p { color: var(--text-dim); font-size: 14px; max-width: 26em; }
+  .footer-col h4 { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 14px; }
+  .footer-col a { display: block; color: var(--text-dim); font-size: 15px; padding: 5px 0; }
+  .footer-bottom { border-top: 1px solid var(--line); padding: 20px 0; display: flex; justify-content: space-between;
+                   font-size: 14px; color: var(--text-faint); }
+</style>
+</head>
+<body>
+
+<!-- ===== Fixed nav ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="mark">S</span><span>Sok<b>oa</b></span></a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-ghost btn-sm" href="signin.html">Sign in</a>
+      <a class="btn btn-primary btn-sm" href="signup.html">Sign up</a>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="hero-eyebrow"><span class="dot"></span>Now delivering in Buea &amp; Douala</span>
+        <h1>Everything you need, from sellers <span class="hl">near you</span>.</h1>
+        <p>Sokoa is Cameroon's friendly marketplace — phones, fashion, fresh groceries and home goods from thousands of local sellers. Pay with MoMo, Orange Money, or cash on delivery.</p>
+        <div class="hero-actions">
+          <a class="btn btn-grad btn-lg" href="shop.html">Shop the deals</a>
+          <a class="btn btn-ghost btn-lg" href="#categories">Browse categories</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">500+</div><div class="lbl">products listed</div></div>
+          <div class="hero-stat"><div class="num">10,000+</div><div class="lbl">orders delivered</div></div>
+          <div class="hero-stat"><div class="num">4.8★</div><div class="lbl">average rating</div></div>
+        </div>
+      </div>
+      <div class="hero-media"><div class="photo"><img src="https://images.unsplash.com/photo-1552710307-8d1c604d6319?w=900&h=720&fit=crop&q=80" alt="Busy African marketplace" loading="eager"></div></div>
+    </div>
+  </header>
+
+  <!-- ===== Products — 4-col grid ===== -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="sec-head">
+        <div><span class="eyebrow">Shop by category</span><h2>Trending in Buea this week</h2></div>
+        <a class="link" href="shop.html">See all deals →</a>
+      </div>
+      <div class="filters">
+        <span class="chip active">All</span>
+        <span class="chip">Phones</span>
+        <span class="chip">Fashion</span>
+        <span class="chip">Groceries</span>
+      </div>
+      <div class="product-grid">
+        <article class="card"><div class="photo slate"><img src="https://images.unsplash.com/photo-1598965402089-897ce52e8355?w=600&h=400&fit=crop&q=80" alt="Tecno Spark 20 Pro" loading="lazy"><span class="cat">Phones</span></div><div class="pc-body"><div class="pc-name">Tecno Spark 20 Pro</div><div class="pc-desc">256GB · 108MP camera</div><div class="pc-foot"><span class="price">112,000 <small>XAF</small></span><span class="add">+</span></div></div></article>
+        <article class="card"><div class="photo sky"><img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=600&h=400&fit=crop&q=80" alt="Infinix Hot 40i" loading="lazy"><span class="cat">Phones</span></div><div class="pc-body"><div class="pc-name">Infinix Hot 40i</div><div class="pc-desc">128GB · 90Hz display</div><div class="pc-foot"><span class="price">95,000 <small>XAF</small></span><span class="add">+</span></div></div></article>
+        <article class="card"><div class="photo rose"><img src="https://images.unsplash.com/photo-1596742578443-7682ef5251cd?w=600&h=400&fit=crop&q=80" alt="itel A70" loading="lazy"><span class="cat">Phones</span></div><div class="pc-body"><div class="pc-name">itel A70</div><div class="pc-desc">128GB · 5000mAh battery</div><div class="pc-foot"><span class="price">48,000 <small>XAF</small></span><span class="add">+</span></div></div></article>
+        <article class="card"><div class="photo plum"><img src="https://images.unsplash.com/photo-1768212565424-efa3a3852b81?w=600&h=400&fit=crop&q=80" alt="Ankara wax print fabric" loading="lazy"><span class="cat">Fashion</span></div><div class="pc-body"><div class="pc-name">Ankara wax · 6 yards</div><div class="pc-desc">Hollandais print</div><div class="pc-foot"><span class="price">11,000 <small>XAF</small></span><span class="add">+</span></div></div></article>
+        <article class="card"><div class="photo"><img src="https://images.unsplash.com/photo-1627388484741-74dcc56ec343?w=600&h=400&fit=crop&q=80" alt="Handmade leather sandals" loading="lazy"><span class="cat">Fashion</span></div><div class="pc-body"><div class="pc-name">Leather sandals</div><div class="pc-desc">Handmade in Foumban</div><div class="pc-foot"><span class="price">14,500 <small>XAF</small></span><span class="add">+</span></div></div></article>
+        <article class="card"><div class="photo green"><img src="https://images.unsplash.com/photo-1575303093127-18b3c4ef8c41?w=600&h=400&fit=crop&q=80" alt="Ndolé leaves" loading="lazy"><span class="cat">Groceries</span></div><div class="pc-body"><div class="pc-name">Ndolé · 500g</div><div class="pc-desc">Fresh bitterleaf</div><div class="pc-foot"><span class="price">3,500 <small>XAF</small></span><span class="add">+</span></div></div></article>
+        <article class="card"><div class="photo amber"><img src="https://images.unsplash.com/photo-1630960411440-10f7b59717ba?w=600&h=400&fit=crop&q=80" alt="Palmnut oil" loading="lazy"><span class="cat">Groceries</span></div><div class="pc-body"><div class="pc-name">Palmnut oil · 5L</div><div class="pc-desc">Cold-pressed, red</div><div class="pc-foot"><span class="price">6,800 <small>XAF</small></span><span class="add">+</span></div></div></article>
+        <article class="card"><div class="photo green"><img src="https://images.unsplash.com/photo-1558907530-83566904e778?w=600&h=400&fit=crop&q=80" alt="Beignets de haricot" loading="lazy"><span class="cat">Groceries</span></div><div class="pc-body"><div class="pc-name">Beignets de haricot ×10</div><div class="pc-desc">Fried bean fritters</div><div class="pc-foot"><span class="price">1,500 <small>XAF</small></span><span class="add">+</span></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Brands ===== -->
+  <section class="section brands">
+    <div class="container">
+      <div class="sec-head" style="justify-content:center;text-align:center"><div><span class="eyebrow">Trusted brands</span><h2>Brands we stock</h2></div></div>
+      <div class="brand-row">
+        <span class="brand-pill"><span class="bdot" style="background:#0EA5E9">T</span>Tecno</span>
+        <span class="brand-pill"><span class="bdot" style="background:#7C3AED">I</span>Infinix</span>
+        <span class="brand-pill"><span class="bdot" style="background:#F97316">i</span>itel</span>
+        <span class="brand-pill"><span class="bdot" style="background:#2563EB">S</span>Samsung</span>
+        <span class="brand-pill"><span class="bdot" style="background:#DC2626">R</span>Redmi</span>
+        <span class="brand-pill"><span class="bdot" style="background:#16A34A">N</span>Nasco</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Gallery ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-head"><div><span class="eyebrow">From the market</span><h2>Real sellers, real streets</h2></div></div>
+      <div class="gallery">
+        <div class="photo g-tall g-wide"><img src="https://images.unsplash.com/photo-1687422809617-a7d97879b3b0?w=600&h=600&fit=crop&q=80" alt="Market vendor · Douala" loading="lazy"></div>
+        <div class="photo amber"><img src="https://images.unsplash.com/photo-1734255026082-82fdc81991f0?w=700&h=280&fit=crop&q=80" alt="Fresh produce — tomato market" loading="lazy"></div>
+        <div class="photo plum"><img src="https://images.unsplash.com/photo-1768212566108-4ce4f329e4d2?w=400&h=280&fit=crop&q=80" alt="Ankara textiles on display" loading="lazy"></div>
+        <div class="photo sky g-wide"><img src="https://images.unsplash.com/photo-1596742578443-7682ef5251cd?w=400&h=280&fit=crop&q=80" alt="Phone counter · Buea" loading="lazy"></div>
+        <div class="photo green"><img src="https://images.unsplash.com/photo-1618615098938-84fc29796e76?w=400&h=280&fit=crop&q=80" alt="Handmade leather sandals" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Newsletter ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="newsletter">
+        <h2>Get the best deals first</h2>
+        <p>Join 8,000+ shoppers getting weekly drops, flash sales and free-delivery codes straight to their inbox.</p>
+        <form class="news-form"><input type="email" placeholder="you@example.cm"><button type="submit" class="btn">Subscribe</button></form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html"><span class="mark">S</span><span>Sok<b>oa</b></span></a>
+        <p>Cameroon's friendly marketplace. Buy from local sellers, pay your way, and get it delivered to your door.</p>
+      </div>
+      <div class="footer-col"><h4>Shop</h4><a href="shop.html">Deals &amp; bundles</a><a href="index.html#categories">Phones</a><a href="index.html#categories">Fashion</a><a href="index.html#categories">Groceries</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About Sokoa</a><a href="about.html">Our team</a><a href="contact.html">Contact</a><a href="signup.html">Become a seller</a></div>
+      <div class="footer-col"><h4>Account</h4><a href="signin.html">Sign in</a><a href="signup.html">Create account</a><a href="contact.html">Help centre</a><a href="contact.html">Track order</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Sokoa Marketplace · Buea &amp; Douala</span><span>Open for business. · Built in Cameroon 🇨🇲</span></div>
+  </div>
+</footer>
+<template id="__bundler_thumbnail" data-bg-color="#FFFBFB">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FFFBFB"/>
+    <rect x="120" y="180" width="440" height="260" rx="18" fill="url(#g4)"/>
+    <rect x="600" y="200" width="260" height="36" rx="6" fill="#20141A"/>
+    <rect x="600" y="256" width="440" height="18" rx="5" fill="#6A535A"/>
+    <rect x="600" y="286" width="400" height="18" rx="5" fill="#6A535A"/>
+    <rect x="120" y="480" width="200" height="150" rx="14" fill="#94A3B8"/>
+    <rect x="340" y="480" width="200" height="150" rx="14" fill="#F472B6"/>
+    <rect x="560" y="480" width="200" height="150" rx="14" fill="#6EE7B7"/>
+    <rect x="780" y="480" width="200" height="150" rx="14" fill="#FDBA74"/>
+    <defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FB7185"/><stop offset="1" stop-color="#BE123C"/></linearGradient></defs>
+  </svg>
+</template>
+
+</body>
+</html>

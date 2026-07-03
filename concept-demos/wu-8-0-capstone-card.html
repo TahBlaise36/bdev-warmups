@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- S8 · Capstone — project brief card — BDev Academy concept demo -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S8 · Capstone — your project, your brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --ink:#0A0A0B; --bone:#FAF9F6;
+    --green:#34D399; --green-deep:#1A2E24;
+    --line:#E2E5E1; --line-soft:#CBD5E1; --text-dim:#54605A;
+  }
+  * { box-sizing:border-box; margin:0; }
+  body {
+    font-family:'Inter',system-ui,sans-serif; color:var(--ink);
+    background:#0A0A0B; line-height:1.6; -webkit-font-smoothing:antialiased;
+    min-height:100vh; display:grid; place-items:center; padding:48px 32px;
+  }
+  .wrap { width:100%; max-width:620px; }
+  .brief-card {
+    background:var(--bone); border-radius:18px; overflow:hidden;
+    border:1px solid rgba(255,255,255,.06); border-left:4px solid var(--green-deep);
+    box-shadow:0 24px 60px rgba(0,0,0,.4); padding:38px 40px;
+  }
+  .label {
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:500;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--green-deep);
+    display:block; margin-bottom:14px;
+  }
+  .brief-header h1 {
+    font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:2rem;
+    letter-spacing:-0.02em; line-height:1.1; margin-bottom:12px;
+  }
+  .brief-header p { color:var(--text-dim); font-size:15.5px; max-width:46ch; }
+
+  .checklist { margin-top:32px; }
+  .checklist h2 {
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px;
+    text-transform:uppercase; letter-spacing:.08em; color:var(--text-dim); margin-bottom:14px;
+  }
+  .checklist ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; }
+  .checklist li.check {
+    display:flex; align-items:flex-start; gap:11px; font-size:15px; color:var(--ink);
+  }
+  .checklist li.check::before {
+    content:"✓"; color:var(--green); font-weight:800; font-size:15px;
+    line-height:1.5; flex-shrink:0;
+  }
+
+  .ideas-grid { margin-top:30px; display:flex; flex-wrap:wrap; gap:8px; }
+  .ideas-grid span {
+    border:1px solid var(--line-soft); border-radius:99px;
+    padding:6px 14px; font-size:0.85rem; color:var(--text-dim);
+    background:#fff; transition:border-color 150ms ease, color 150ms ease;
+  }
+  .ideas-grid span:hover { border-color:var(--green); color:var(--green-deep); }
+
+  .brief-footer {
+    margin-top:30px; padding-top:20px; border-top:1px solid var(--line);
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;
+    color:var(--green-deep);
+  }
+  .caption {
+    margin-top:22px; text-align:center; color:rgba(250,249,246,.6);
+    font-size:14.5px; max-width:520px; margin-left:auto; margin-right:auto;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brief-card">
+      <div class="brief-header">
+        <span class="label">Web Foundations · Capstone Project</span>
+        <h1>Build something real.</h1>
+        <p>You have everything you need. Pick a problem, plan a page,
+        ship it live. This is your proof of work.</p>
+      </div>
+
+      <div class="checklist">
+        <h2>Your brief</h2>
+        <ul>
+          <li class="check">Choose a real use case from Cameroon</li>
+          <li class="check">Plan: what pages, what content, what goal?</li>
+          <li class="check">Build: semantic HTML → CSS → responsive → interactive</li>
+          <li class="check">Deploy to Netlify with a custom subdomain</li>
+          <li class="check">Present: 3-minute walkthrough to the cohort</li>
+        </ul>
+      </div>
+
+      <div class="ideas-grid">
+        <span>Market Price Tracker</span>
+        <span>Study Planner</span>
+        <span>Restaurant Menu</span>
+        <span>Freelance Portfolio</span>
+        <span>MoMo Calculator</span>
+        <span>Quartier Events Board</span>
+      </div>
+
+      <div class="brief-footer">
+        <span>Or pitch your own →</span>
+      </div>
+    </div>
+    <p class="caption">No brand constraint. No assigned project. Just one rule: it must solve a real problem for a real person.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create account — Sokoa</title>
+<meta name="description" content="Create a free Sokoa account to shop local, save favourites and pay with MoMo or on delivery.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="auth-page">
+  <a class="auth-home" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    Back to store
+  </a>
+
+  <div class="auth-card">
+    <a class="logo" href="index.html">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9A2 2 0 0 1 7 19L6 8Z" fill="#fff"/><path d="M9 8V7a3 3 0 0 1 6 0v1" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M9.5 13.5l2 2 3.2-3.4" stroke="#BE123C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span>Sok<b>oa</b></span>
+    </a>
+    <h1>Create your account</h1>
+    <p class="auth-sub">Shop local, pay your way — it's free to join.</p>
+
+    <form id="signupForm" novalidate>
+      <div class="field">
+        <label for="suName">Full name</label>
+        <input type="text" id="suName" class="control" placeholder="Eposi Mbella" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="suEmail">Email</label>
+        <input type="email" id="suEmail" class="control" placeholder="you@example.cm" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="suCat">Preferred category</label>
+        <select id="suCat" class="control">
+          <option value="">What do you shop for most?</option>
+          <option>Phones &amp; electronics</option>
+          <option>Fashion &amp; style</option>
+          <option>Groceries &amp; fresh food</option>
+          <option>Home &amp; living</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="signupPw">Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="signupPw" class="control" placeholder="Create a password" autocomplete="new-password">
+          <button type="button" class="pw-toggle" data-target="signupPw" aria-label="Show password">
+            <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.9 4.24A9.1 9.1 0 0 1 12 4c6.5 0 10 7 10 7a13.2 13.2 0 0 1-2.16 2.95M6.6 6.6A13.3 13.3 0 0 0 2 12s3.5 7 10 7a9 9 0 0 0 4.4-1.1M3 3l18 18"/><path d="M9.5 9.5a3 3 0 0 0 4.2 4.2"/></svg>
+          </button>
+        </div>
+        <div class="pw-strength" id="pwStrength"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        <div class="pw-label" id="pwLabel"></div>
+      </div>
+      <label class="auth-check"><input type="checkbox"> I agree to Sokoa's terms and privacy policy.</label>
+      <button type="submit" class="btn btn-grad btn-lg">Create account
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+
+    <p class="auth-foot">Already have an account? <a href="signin.html">Sign in</a></p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

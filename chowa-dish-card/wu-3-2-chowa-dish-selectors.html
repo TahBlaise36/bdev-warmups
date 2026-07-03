@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chowa — Dish Card · Selectors</title>
+  <style>
+    /* ① Element selector — targets every <div> */
+    div {
+      border: 2px solid #d1d5db;
+      padding: 8px;
+      max-width: 340px;
+    }
+
+    /* ② Class selector — targets .dish-name */
+    .dish-name {
+      color: #EA580C;
+      font-size: 1.3rem;
+    }
+
+    /* ③ ID selector — targets #order-btn */
+    #order-btn {
+      background: #EA580C;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <img src="https://images.unsplash.com/photo-1664741662725-bd131742b7b7?w=600&h=400&fit=crop&q=80"
+         alt="Ndolé au crabe" width="320">
+    <h2 class="dish-name">Ndolé au crabe</h2>
+    <p>Slow-cooked bitterleaf stew with crab, smoked fish, and groundnut.</p>
+    <p><strong>4,500 XAF</strong></p>
+    <button id="order-btn">Order now</button>
+  </div>
+
+  <div style="margin-top:32px; font-family:monospace; font-size:14px;
+              background:#F8FAFC; border:1px solid #E2E8F0; padding:20px;
+              border-radius:8px; max-width:500px">
+    <div style="color:#64748B; margin-bottom:8px">3 selectors used:</div>
+    <div><span style="color:#6366F1">div</span> { border } — element (targets every div)</div>
+    <div><span style="color:#EA580C">.dish-name</span> { color } — class (targets .dish-name)</div>
+    <div><span style="color:#E2562B">#order-btn</span> { background } — ID (targets one element)</div>
+  </div>
+
+</body>
+</html>

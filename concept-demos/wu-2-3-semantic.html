@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- WU 2.3 · Semantic HTML vs div soup — BDev Academy concept demo -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S2 · WU 2.3 — Semantic HTML vs div soup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --ink:#0A0A0B; --bone:#FAF9F6; --terra:#E2562B;
+    --code-bg:#1A1A2E; --code-text:#E2E8F0;
+    --line:#E6E2DA; --text-dim:#605D57;
+    --tg:#7DD3FC; --cls:#E0AF68; --str:#A5D6A7;
+    --red:#EF4444; --green:#34D399;
+  }
+  * { box-sizing:border-box; margin:0; }
+  body {
+    font-family:'Inter',system-ui,sans-serif; color:var(--ink);
+    background:#ECEAE4; line-height:1.6; -webkit-font-smoothing:antialiased;
+    min-height:100vh; display:grid; place-items:center; padding:48px 32px;
+  }
+  .demo { width:100%; max-width:960px; }
+  .label {
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--terra);
+    margin-bottom:14px; display:block;
+  }
+  .split { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .subcard {
+    border-radius:16px; overflow:hidden; border:1px solid var(--line);
+    box-shadow:0 12px 40px rgba(10,10,11,.10);
+  }
+  .subcard-head {
+    display:flex; align-items:center; gap:8px;
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;
+    padding:14px 20px; color:#fff;
+  }
+  .dot { width:9px; height:9px; border-radius:50%; }
+  .head-before { background:#241A22; }
+  .head-before .dot { background:var(--red); }
+  .head-after { background:#16241E; }
+  .head-after .dot { background:var(--green); }
+  .code {
+    color:var(--code-text); font-family:'JetBrains Mono',monospace;
+    font-size:13px; line-height:1.7;
+  }
+  .code pre { padding:20px; margin:0; white-space:pre; overflow-x:auto; }
+  .code-before { background:var(--code-bg); }
+  .code-before pre { background:rgba(239,68,68,.10); }
+  .code-after { background:var(--code-bg); }
+  .code-after pre { background:rgba(52,211,153,.10); }
+  .tg { color:var(--tg); }
+  .cls { color:var(--cls); }
+  .caption {
+    margin-top:22px; text-align:center; color:var(--text-dim);
+    font-size:15px; max-width:680px; margin-left:auto; margin-right:auto;
+  }
+  @media (max-width:680px){ .split{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+  <div class="demo">
+    <span class="label">S2 · WU 2.3</span>
+    <div class="split">
+      <div class="subcard">
+        <div class="subcard-head head-before"><span class="dot"></span> Before · div soup</div>
+        <div class="code code-before">
+<pre><span class="tg">&lt;div</span> <span class="cls">class</span>=<span class="str">"header"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;div</span> <span class="cls">class</span>=<span class="str">"logo"</span><span class="tg">&gt;</span>Sokoa<span class="tg">&lt;/div&gt;</span>
+  <span class="tg">&lt;div</span> <span class="cls">class</span>=<span class="str">"menu"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;div</span> <span class="cls">class</span>=<span class="str">"item"</span><span class="tg">&gt;</span>Home<span class="tg">&lt;/div&gt;</span>
+    <span class="tg">&lt;div</span> <span class="cls">class</span>=<span class="str">"item"</span><span class="tg">&gt;</span>Shop<span class="tg">&lt;/div&gt;</span>
+  <span class="tg">&lt;/div&gt;</span>
+<span class="tg">&lt;/div&gt;</span>
+<span class="tg">&lt;div</span> <span class="cls">class</span>=<span class="str">"content"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;div</span> <span class="cls">class</span>=<span class="str">"title"</span><span class="tg">&gt;</span>Fresh groceries<span class="tg">&lt;/div&gt;</span>
+  <span class="tg">&lt;div</span> <span class="cls">class</span>=<span class="str">"text"</span><span class="tg">&gt;</span>Order online, pay with MoMo.<span class="tg">&lt;/div&gt;</span>
+<span class="tg">&lt;/div&gt;</span></pre>
+        </div>
+      </div>
+
+      <div class="subcard">
+        <div class="subcard-head head-after"><span class="dot"></span> After · semantic</div>
+        <div class="code code-after">
+<pre><span class="tg">&lt;header&gt;</span>
+  <span class="tg">&lt;h1&gt;</span>Sokoa<span class="tg">&lt;/h1&gt;</span>
+  <span class="tg">&lt;nav&gt;</span>
+    <span class="tg">&lt;ul&gt;</span>
+      <span class="tg">&lt;li&gt;&lt;a</span> <span class="cls">href</span>=<span class="str">"#"</span><span class="tg">&gt;</span>Home<span class="tg">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="tg">&lt;li&gt;&lt;a</span> <span class="cls">href</span>=<span class="str">"#"</span><span class="tg">&gt;</span>Shop<span class="tg">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="tg">&lt;/ul&gt;</span>
+  <span class="tg">&lt;/nav&gt;</span>
+<span class="tg">&lt;/header&gt;</span>
+<span class="tg">&lt;main&gt;</span>
+  <span class="tg">&lt;h2&gt;</span>Fresh groceries<span class="tg">&lt;/h2&gt;</span>
+  <span class="tg">&lt;p&gt;</span>Order online, pay with MoMo.<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;/main&gt;</span></pre>
+        </div>
+      </div>
+    </div>
+    <p class="caption">Same page. The semantic version tells the browser — and screen readers — what each part means.</p>
+  </div>
+</body>
+</html>

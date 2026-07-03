@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop deals — Sokoa</title>
+<meta name="description" content="Bundle deals on phones, fashion, groceries and home goods. Best value picks and combo bundles with free delivery.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== Nav ===== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9A2 2 0 0 1 7 19L6 8Z" fill="#fff"/><path d="M9 8V7a3 3 0 0 1 6 0v1" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M9.5 13.5l2 2 3.2-3.4" stroke="#BE123C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span>Sok<b>oa</b></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <a class="btn btn-ghost btn-sm nav-cta" href="signin.html">Sign in</a>
+      <a class="btn btn-primary btn-sm nav-cta" href="signup.html">Sign up</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <svg class="menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="shop.html" class="active">Shop</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <div class="mm-actions">
+    <a class="btn btn-ghost" href="signin.html">Sign in</a>
+    <a class="btn btn-primary" href="signup.html">Sign up</a>
+  </div>
+</div>
+
+<main class="page">
+
+  <section class="section">
+    <div class="container">
+      <div class="shop-head">
+        <span class="eyebrow">Deals &amp; bundles</span>
+        <h1>This week's best value</h1>
+        <p>Hand-picked bundles from sellers across Buea and Douala. Switch between single items and bundle pricing to see how much you save.</p>
+      </div>
+
+      <!-- single / bundle toggle -->
+      <div class="toggle-wrap">
+        <div class="deal-toggle" id="dealToggle">
+          <button class="active" data-mode="single">Single item</button>
+          <button data-mode="bundle">Bundle &amp; save</button>
+        </div>
+      </div>
+
+      <!-- 4-col deal grid -->
+      <div class="deal-grid">
+        <article class="card deal-card">
+          <div class="ph slate dc-ph"><img src="https://images.unsplash.com/photo-1640936343842-268f9d87e764?w=600&h=400&fit=crop&q=80" alt="itel P55 smartphone" loading="lazy"></div>
+          <div class="dc-tier">Starter phone</div>
+          <div class="dc-sub">itel P55 with a screen guard and a 6-month warranty.</div>
+          <div class="dc-price"><span class="now" data-single="68,000" data-bundle="61,000">68,000 </span><span class="dc-cur">XAF</span><span class="was">79,000</span></div>
+          <ul class="deal-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>128GB storage</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>Tempered glass guard</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>6-month warranty</li>
+          </ul>
+          <a class="btn btn-secondary btn-block" href="signup.html">Add to cart</a>
+        </article>
+
+        <article class="card deal-card featured">
+          <span class="best-badge">★ BEST VALUE</span>
+          <div class="ph sky dc-ph"><img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=600&h=400&fit=crop&q=80" alt="Infinix Hot 40i" loading="lazy"></div>
+          <div class="dc-tier">Everyday hero</div>
+          <div class="dc-sub">Infinix Hot 40i with case, guard and 10,000mAh power bank.</div>
+          <div class="dc-price"><span class="now" data-single="95,000" data-bundle="84,000">95,000 </span><span class="dc-cur">XAF</span><span class="was">112,000</span></div>
+          <ul class="deal-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>90Hz display, 128GB</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>Case + screen guard</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>10,000mAh power bank</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>Free same-day delivery</li>
+          </ul>
+          <a class="btn btn-grad btn-block" href="signup.html">Add to cart</a>
+        </article>
+
+        <article class="card deal-card">
+          <div class="ph green dc-ph"><img src="https://images.unsplash.com/photo-1575303093127-18b3c4ef8c41?w=600&h=400&fit=crop&q=80" alt="Weekly groceries bundle" loading="lazy"></div>
+          <div class="dc-tier">Weekly groceries</div>
+          <div class="dc-sub">Plantain, 5kg rice, palm oil and seasoning — fresh from Muea.</div>
+          <div class="dc-price"><span class="now" data-single="14,500" data-bundle="12,000">14,500 </span><span class="dc-cur">XAF</span><span class="was">17,200</span></div>
+          <ul class="deal-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>Bunch of ripe plantain</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>5kg parboiled rice</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>1L palm oil + seasoning</li>
+          </ul>
+          <a class="btn btn-secondary btn-block" href="signup.html">Add to cart</a>
+        </article>
+
+        <article class="card deal-card">
+          <div class="ph amber dc-ph"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=400&fit=crop&q=80" alt="Home refresh bundle" loading="lazy"></div>
+          <div class="dc-tier">Home refresh</div>
+          <div class="dc-sub">18&quot; standing fan plus a 4-piece non-stick cookware set.</div>
+          <div class="dc-price"><span class="now" data-single="34,000" data-bundle="29,500">34,000 </span><span class="dc-cur">XAF</span><span class="was">41,000</span></div>
+          <ul class="deal-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>18&quot; 3-speed fan</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>4-piece cookware set</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>Non-stick, easy clean</li>
+          </ul>
+          <a class="btn btn-secondary btn-block" href="signup.html">Add to cart</a>
+        </article>
+      </div>
+
+      <!-- larger combo bundle (flexbox) -->
+      <div class="card combo">
+        <div class="combo-media"><div class="ph rose"><img src="https://images.unsplash.com/photo-1552710307-8d1c604d6319?w=900&h=720&fit=crop&q=80" alt="Back-to-campus combo" loading="lazy"></div></div>
+        <div class="combo-body">
+          <span class="badge badge-amber">★ Mega combo · save 19%</span>
+          <h3>The back-to-campus combo</h3>
+          <p>A Tecno Spark 20 Pro, a backpack, a 6-yard ankara set and a month of groceries — everything to start the term, in one delivery.</p>
+          <div class="combo-price"><span class="now" data-single="155,000" data-bundle="139,000">155,000</span> <span class="dc-cur">XAF</span> <span class="was">191,500</span></div>
+          <div class="combo-actions">
+            <a class="btn btn-grad btn-lg" href="signup.html">Grab the combo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-secondary btn-lg" href="contact.html">Ask a question</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ · 2 col ===== -->
+  <section class="section brands reveal">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Good to know</span>
+          <h2>Frequently asked questions</h2>
+        </div>
+      </div>
+      <div class="faq-wrap">
+        <div class="faq-item">
+          <button class="faq-q">How does delivery work?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>We deliver across Buea and Douala, usually the same day. Delivery is free on orders over 25,000 XAF; otherwise a small flat fee applies based on your neighbourhood.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What payment methods can I use?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>MTN Mobile Money, Orange Money, or cash on delivery. You confirm payment when the rider arrives, so you only pay once your order is in hand.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can I return an item?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Yes. If something arrives damaged or isn't what you ordered, contact us within 48 hours and we'll arrange a free pickup and a refund or replacement.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">How do bundle prices work?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Toggle “Bundle &amp; save” above to see the discounted price when you buy the full set together instead of single items. The bundle price is always lower.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can I sell on Sokoa?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>Absolutely. Create a free account, choose “Become a seller”, and list your products. Most sellers are live within a day.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do you deliver outside Buea and Douala?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          <div class="faq-a"><p>We're expanding. Limbe, Tiko and Yaoundé are next — sign up for the newsletter and we'll let you know the moment we reach your city.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">
+          <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9A2 2 0 0 1 7 19L6 8Z" fill="#fff"/><path d="M9 8V7a3 3 0 0 1 6 0v1" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M9.5 13.5l2 2 3.2-3.4" stroke="#BE123C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>Sok<b>oa</b></span>
+        </a>
+        <p>Cameroon's friendly marketplace. Buy from local sellers, pay your way, and get it delivered to your door.</p>
+        <div class="footer-pay">
+          <img src="assets/mtn-momo.png" alt="MTN Mobile Money">
+          <img src="assets/orange-money.png" alt="Orange Money">
+          <span class="cod">Cash on delivery</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="shop.html">Deals &amp; bundles</a>
+        <a href="index.html#categories">Phones</a>
+        <a href="index.html#categories">Fashion</a>
+        <a href="index.html#categories">Groceries</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About Sokoa</a>
+        <a href="about.html">Our team</a>
+        <a href="contact.html">Contact</a>
+        <a href="signup.html">Become a seller</a>
+      </div>
+      <div class="footer-col">
+        <h4>Account</h4>
+        <a href="signin.html">Sign in</a>
+        <a href="signup.html">Create account</a>
+        <a href="contact.html">Help centre</a>
+        <a href="contact.html">Track order</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Sokoa Marketplace · Buea &amp; Douala</span>
+      <span>Open for business. · Built in Cameroon 🇨🇲</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
