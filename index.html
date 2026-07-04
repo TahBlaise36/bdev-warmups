@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BDev · Web Foundations Warm-Ups</title>
+<meta name="description" content="The 28 interactive warm-up builds for BDev Academy's Web Foundations track — Sokoa storefront, Chowa dish card, and concept demos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0A0A0B;
+    --surface: #131316;
+    --surface-2: #1A1A1F;
+    --line: #26262C;
+    --text: #F5F4F2;
+    --text-dim: #A3A29E;
+    --text-faint: #6B6A67;
+    --terra: #E2562B;
+    --terra-tint: rgba(226,86,43,0.12);
+    --web: #E2562B;
+    --front: #4F8DFF;
+    --back: #34D399;
+    --mobile: #A855F7;
+    --full: #6366F1;
+    --sokoa: #F43F5E;
+    --chowa: #EA580C;
+    --radius: 14px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  header.top {
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(226,86,43,0.06), transparent);
+  }
+  .top-inner { padding: 64px 0 48px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 28px;
+  }
+  .logo .mark {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: var(--terra); display: grid; place-items: center;
+  }
+  .logo .mark svg { width: 18px; height: 18px; }
+  .logo .word {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: 1.15rem; letter-spacing: -0.01em;
+  }
+  .logo .word span { color: var(--terra); }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700; letter-spacing: -0.02em; line-height: 1.1;
+    margin-bottom: 16px; max-width: 16ch;
+  }
+  h1 em { color: var(--terra); font-style: normal; }
+  .sub { color: var(--text-dim); font-size: 1.05rem; max-width: 60ch; }
+  .meta {
+    margin-top: 24px; display: flex; gap: 20px; flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+    color: var(--text-faint);
+  }
+  .meta b { color: var(--text); font-weight: 500; }
+
+  main { padding: 48px 0 80px; }
+  .section { margin-bottom: 44px; }
+  .section-head {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 18px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-head .num {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+    color: var(--terra); font-weight: 500;
+  }
+  .section-head h2 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem;
+    font-weight: 600; letter-spacing: -0.01em;
+  }
+  .section-head .count {
+    margin-left: auto; font-size: 0.8rem; color: var(--text-faint);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 16px 18px;
+    transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--accent, var(--terra));
+    opacity: 0.8;
+  }
+  @media (hover: hover) {
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent, var(--terra));
+      background: var(--surface-2);
+    }
+  }
+  .card .tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    color: var(--accent, var(--terra)); font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .card .name {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+    font-size: 0.98rem; margin: 5px 0 3px;
+  }
+  .card .desc { font-size: 0.82rem; color: var(--text-dim); }
+  .card .brand {
+    display: inline-block; margin-top: 10px;
+    font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.05em; padding: 2px 8px; border-radius: 99px;
+  }
+  .brand.sokoa  { background: rgba(244,63,94,0.14); color: #FB7185; }
+  .brand.chowa  { background: rgba(234,88,12,0.16); color: #FB923C; }
+  .brand.bdev   { background: var(--terra-tint); color: #F0805A; }
+  .brand.neutral{ background: rgba(163,162,158,0.12); color: var(--text-dim); }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 32px 0;
+    color: var(--text-faint); font-size: 0.85rem;
+  }
+  footer a { color: var(--terra); text-decoration: none; }
+
+  /* section accent colors */
+  #s2 .card { --accent: var(--web); }
+  #s3 .card { --accent: var(--web); }
+  #s4 .card { --accent: var(--web); }
+  #s5 .card { --accent: var(--web); }
+  #s6 .card { --accent: var(--web); }
+  #s7 .card { --accent: var(--web); }
+  #s8 .card { --accent: var(--full); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <div class="logo">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 20 L12 5 L21 20"/>
+        </svg>
+      </span>
+      <span class="word">BDev<span>.cm</span></span>
+    </div>
+    <h1>Web Foundations <em>Warm-Ups</em></h1>
+    <p class="sub">The 28 interactive builds students study and rebuild across Track 1 — one cumulative Sokoa storefront, a recurring Chowa dish card, and focused concept demos. Each one is live: hover, click, resize, toggle themes.</p>
+    <div class="meta">
+      <span><b>28</b> artifacts</span>
+      <span><b>7</b> sections</span>
+      <span><b>Sokoa</b> · <b>Chowa</b> · <b>BDev</b> brands</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- S2 -->
+  <section class="section" id="s2">
+    <div class="section-head">
+      <span class="num">S2</span><h2>HTML Structure</h2>
+      <span class="count">5 builds</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="concept-demos/wu-2-1-first-elements.html">
+        <span class="tag">WU 2.1</span><div class="name">First elements</div>
+        <div class="desc">h1, p, strong, em — raw HTML</div>
+        <span class="brand neutral">Neutral</span></a>
+      <a class="card" href="chowa-dish-card/wu-2-2-chowa-dish-html.html">
+        <span class="tag">WU 2.2</span><div class="name">Chowa dish card — HTML</div>
+        <div class="desc">Structure first, no styling</div>
+        <span class="brand chowa">Chowa</span></a>
+      <a class="card" href="concept-demos/wu-2-3-semantic.html">
+        <span class="tag">WU 2.3</span><div class="name">Kill the div soup</div>
+        <div class="desc">Semantic HTML, before &amp; after</div>
+        <span class="brand neutral">Neutral</span></a>
+      <a class="card" href="concept-demos/wu-2-4-links-img-form.html">
+        <span class="tag">WU 2.4</span><div class="name">Link, image, field</div>
+        <div class="desc">The interactive HTML pieces</div>
+        <span class="brand neutral">Neutral</span></a>
+      <a class="card" href="s2-html-structure/index.html">
+        <span class="tag">Project 2.5</span><div class="name">Sokoa storefront — HTML</div>
+        <div class="desc">Unstyled, browser-default</div>
+        <span class="brand sokoa">Sokoa</span></a>
+    </div>
+  </section>
+
+  <!-- S3 -->
+  <section class="section" id="s3">
+    <div class="section-head">
+      <span class="num">S3</span><h2>CSS Styling</h2>
+      <span class="count">6 builds</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="concept-demos/wu-3-1-link-stylesheet.html">
+        <span class="tag">WU 3.1</span><div class="name">Link your first stylesheet</div>
+        <div class="desc">One tag, one file</div>
+        <span class="brand neutral">Neutral</span></a>
+      <a class="card" href="chowa-dish-card/wu-3-2-chowa-dish-selectors.html">
+        <span class="tag">WU 3.2</span><div class="name">Target the dish card</div>
+        <div class="desc">Element, class &amp; ID selectors</div>
+        <span class="brand chowa">Chowa</span></a>
+      <a class="card" href="chowa-dish-card/wu-3-3-chowa-dish-colour-type.html">
+        <span class="tag">WU 3.3</span><div class="name">Colour &amp; type pass</div>
+        <div class="desc">Brand colour + Poppins</div>
+        <span class="brand chowa">Chowa</span></a>
+      <a class="card" href="chowa-dish-card/wu-3-4-chowa-dish-boxmodel.html">
+        <span class="tag">WU 3.4</span><div class="name">Box-model spacing</div>
+        <div class="desc">The finished dish card</div>
+        <span class="brand chowa">Chowa</span></a>
+      <a class="card" href="concept-demos/wu-3-5-specificity.html">
+        <span class="tag">WU 3.5</span><div class="name">Specificity battle</div>
+        <div class="desc">ID beats class beats element</div>
+        <span class="brand neutral">Neutral</span></a>
+      <a class="card" href="s3-css-styling/index.html">
+        <span class="tag">Project 3.6</span><div class="name">Styled Sokoa storefront</div>
+        <div class="desc">The first "real website" moment</div>
+        <span class="brand sokoa">Sokoa</span></a>
+    </div>
+  </section>
+
+  <!-- S4 -->
+  <section class="section" id="s4">
+    <div class="section-head">
+      <span class="num">S4</span><h2>CSS Layouts</h2>
+      <span class="count">5 builds</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="concept-demos/wu-4-1-block-vs-inline.html">
+        <span class="tag">WU 4.1</span><div class="name">Block vs inline</div>
+        <div class="desc">Display behaviour</div>
+        <span class="brand neutral">Neutral</span></a>
+      <a class="card" href="s4-bdev-components/wu-4-2-navbar.html">
+        <span class="tag">WU 4.2</span><div class="name">Nav bar with Flexbox</div>
+        <div class="desc">Logo left, links right</div>
+        <span class="brand bdev">BDev</span></a>
+      <a class="card" href="s4-bdev-components/wu-4-3-trackgrid.html">
+        <span class="tag">WU 4.3</span><div class="name">Track-cards grid</div>
+        <div class="desc">CSS Grid, auto-fit reflow</div>
+        <span class="brand bdev">BDev</span></a>
+      <a class="card" href="s4-bdev-components/wu-4-4-badge.html">
+        <span class="tag">WU 4.4</span><div class="name">Pin a badge</div>
+        <div class="desc">position: absolute</div>
+        <span class="brand bdev">BDev</span></a>
+      <a class="card" href="s4-layout/index.html">
+        <span class="tag">Project 4.5</span><div class="name">Lay out the Sokoa page</div>
+        <div class="desc">Multi-section, real layout</div>
+        <span class="brand sokoa">Sokoa</span></a>
+    </div>
+  </section>
+
+  <!-- S5 -->
+  <section class="section" id="s5">
+    <div class="section-head">
+      <span class="num">S5</span><h2>Responsive Design</h2>
+      <span class="count">7 builds</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="sokoa-storefront/index.html">
+        <span class="tag">WU 5.1</span><div class="name">Test on mobile</div>
+        <div class="desc">Mobile-first, viewport</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="sokoa-storefront/index.html#categories">
+        <span class="tag">WU 5.2</span><div class="name">First breakpoint</div>
+        <div class="desc">Media queries, grid reflow</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="sokoa-storefront/index.html#hero">
+        <span class="tag">WU 5.3</span><div class="name">Fluid heading with clamp()</div>
+        <div class="desc">Type that scales</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="sokoa-storefront/index.html#productGrid">
+        <span class="tag">WU 5.4</span><div class="name">Reflowing product grid</div>
+        <div class="desc">3-col → 1-col auto-fit</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="sokoa-storefront/index.html#productGrid">
+        <span class="tag">WU 5.5</span><div class="name">Fix overflowing image</div>
+        <div class="desc">max-width: 100%</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="sokoa-storefront/index.html#productGrid">
+        <span class="tag">WU 5.6</span><div class="name">Smooth hover</div>
+        <div class="desc">Add-to-Cart lift + transition</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="sokoa-storefront/index.html">
+        <span class="tag">Project 5.7</span><div class="name">Responsive Sokoa storefront</div>
+        <div class="desc">Phone, tablet, desktop</div>
+        <span class="brand sokoa">Sokoa</span></a>
+    </div>
+  </section>
+
+  <!-- S6 -->
+  <section class="section" id="s6">
+    <div class="section-head">
+      <span class="num">S6</span><h2>JavaScript Basics</h2>
+      <span class="count">6 builds</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="concept-demos/wu-6-1-console-log.html">
+        <span class="tag">WU 6.1</span><div class="name">Run your first script</div>
+        <div class="desc">console.log("Hello from Buea!")</div>
+        <span class="brand neutral">Neutral</span></a>
+      <a class="card" href="concept-demos/wu-6-2-price-calc.html">
+        <span class="tag">WU 6.2</span><div class="name">Price a Sokoa product</div>
+        <div class="desc">Variables + discount calc</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="concept-demos/wu-6-3-delivery-checker.html">
+        <span class="tag">WU 6.3</span><div class="name">Free-delivery checker</div>
+        <div class="desc">Function + if/else</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="concept-demos/wu-6-4-array-loop.html">
+        <span class="tag">WU 6.4</span><div class="name">Product catalogue loop</div>
+        <div class="desc">Array of objects + forEach</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="sokoa-storefront/index.html#productGrid">
+        <span class="tag">WU 6.5</span><div class="name">Make a button respond</div>
+        <div class="desc">DOM click → page reacts</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="sokoa-storefront/index.html">
+        <span class="tag">Project 6.6</span><div class="name">Make Sokoa interactive</div>
+        <div class="desc">Cart, menu, counters</div>
+        <span class="brand sokoa">Sokoa</span></a>
+    </div>
+  </section>
+
+  <!-- S7 -->
+  <section class="section" id="s7">
+    <div class="section-head">
+      <span class="num">S7</span><h2>DOM Deep Dive</h2>
+      <span class="count">6 builds</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="s7-dom-deep-dive/catalogue.html#list">
+        <span class="tag">WU 7.1</span><div class="name">Explore the DOM tree</div>
+        <div class="desc">Inspect live nodes</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="s7-dom-deep-dive/catalogue.html#list">
+        <span class="tag">WU 7.2</span><div class="name">Grab some elements</div>
+        <div class="desc">querySelector / All</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="s7-dom-deep-dive/catalogue.html#list">
+        <span class="tag">WU 7.3</span><div class="name">Change a price live</div>
+        <div class="desc">textContent, classList</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="s7-dom-deep-dive/catalogue.html#add-form">
+        <span class="tag">WU 7.4</span><div class="name">Build a product list</div>
+        <div class="desc">createElement + append</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="s7-dom-deep-dive/catalogue.html#cartBtn">
+        <span class="tag">WU 7.5</span><div class="name">Wire up Add to Cart</div>
+        <div class="desc">Event delegation, live counter</div>
+        <span class="brand sokoa">Sokoa</span></a>
+      <a class="card" href="s7-dom-deep-dive/catalogue.html">
+        <span class="tag">Project 7.6</span><div class="name">Sokoa Product Catalogue</div>
+        <div class="desc">Filter, add, delete, localStorage</div>
+        <span class="brand sokoa">Sokoa</span></a>
+    </div>
+  </section>
+
+  <!-- S8 -->
+  <section class="section" id="s8">
+    <div class="section-head">
+      <span class="num">S8</span><h2>Capstone</h2>
+      <span class="count">1 template</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="concept-demos/wu-8-0-capstone-card.html">
+        <span class="tag">S8</span><div class="name">Capstone brief</div>
+        <div class="desc">Your project, your pick</div>
+        <span class="brand neutral">Open</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    BDev Academy · Web Foundations warm-up kit · Buea · Yaoundé · Douala<br>
+    Built for <a href="https://bdev.cm">bdev.cm</a> — training that makes you dangerous.
+  </div>
+</footer>
+
+</body>
+</html>
